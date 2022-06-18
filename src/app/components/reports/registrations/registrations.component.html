@@ -1,0 +1,29 @@
+<div class="container mt-1">
+    <div class="background-All p-2">
+        <div class="row offset-lg-1">
+            <div class="col-md-3">
+                <mat-form-field color="accent" appearance="fill">
+                    <mat-label>Date</mat-label>
+                    <mat-date-range-input [formGroup]='dateRange' [rangePicker]='picker' [max]='currentDate'>
+                        <input matStartDate formControlName='startDate' readonly>
+                        <input matEndDate formControlName='endDate' readonly>
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+            </div>
+            <div class="col mt-2">
+                <button mat-raised-button color='primary' (click)='getData()'>Show</button>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="embed-responsive embed-responsive-16by9 col-12">
+                <object type='application/pdf' *ngIf='hasData' [data]='pdfData'>
+                    <p>Cannot View Report. You can Download report
+                        <a [href]='pdfUrl' download>Here</a>
+                    </p>
+                </object>
+            </div>
+        </div>
+    </div>
+</div>

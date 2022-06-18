@@ -1,0 +1,79 @@
+<title>Hospital Management System</title>
+<div class="row">
+    <div class="col-lg-6 col-sm-6 col-xl-6 col-md-6 " style="background: #00BFFF;">
+        <div class="text-primary ml-5 visible-lg">
+            <span id="Label6" class=" text-right"
+                style="font-family:Times New Roman;font-size:XX-Large;font-weight:bold;">Hospital Management
+                System</span>
+        </div>
+        <div class="text-primary  visible-sm visible-md visible-xs">
+            <span id="txthealder" class=" text-right"
+                style="font-family:Times New Roman;font-size:X-Large;font-weight:bold;">Hospital Management
+                System</span>
+        </div>
+    </div>
+    <div class="col-lg-6 col-sm-6 col-xl-6 col-md-6" style="background: #00BFFF;">
+        <div class="text-light text-right visible-lg" style="margin-right: 10%">
+            Developed By <a class="text-light font-weight-bold" href="https://crescenttechnosofts.com"
+                target="_blank">Crescent Technosoft</a>
+            <br />
+            <i class="fa fa-mobile-alt" style="font-size: large"></i>
+            <label class="text-left">+91-9944992460</label>&nbsp;
+            <i class="fa fa-phone-square" style="font-size: large"></i>
+            <label class=" text-left">044-43556696</label>
+        </div>
+        <div class="text-light text-right visible-sm visible-md visible-xs">
+            Developed By <a class="text-light font-weight-bold" href="https://crescenttechnosofts.com"
+                target="_blank">Crescent Technosoft</a>
+            <br />
+            <i class="fa fa-mobile-alt" style="font-size: large"></i>
+            <label class=" text-left font-medium">+91-9944992460</label>&nbsp;
+            <i class="fa fa-phone-square" style="font-size: large"></i>
+            <label class=" text-left font-medium">+91-9944992460</label>&nbsp;
+        </div>
+    </div>
+</div>
+<div class="pt-5"></div>
+<div class="pt-5"></div>
+<div class="container">
+    <div class="row ">
+        <div class="col-lg-8 col-12">
+            <img [src]="'assets/Images/Assets/sruthi.jpeg'" alt="Logo" class="img-fluid img-thumbnail offset-lg-2"
+                style="max-height:300px" />
+        </div>
+        <div class="col-lg-2 col-12">
+            <form [formGroup]='loginForm' (ngSubmit)='Login()'>
+                <div class="container pt-5 pt-lg-0">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group text-center " style="font-family: Verdana; color: #00BFFF;
+                                         font-size: large;">
+                                <label>Sign in to continue</label>
+                            </div>
+                            <mat-form-field>
+                                <mat-label>User Name</mat-label>
+                                <input matInput formControlName='userName'>
+                                <mat-error *ngIf='submitted && GetFormControls.userName.errors?.required'>User Name
+                                    is Required</mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Password</mat-label>
+                                <input type="password" matInput formControlName='password'>
+                                <mat-error *ngIf='submitted && GetFormControls.password.errors?.required'>Password is
+                                    Required</mat-error>
+                            </mat-form-field>
+                            <div class="form-group">
+                                <button mat-raised-button color='primary' type="submit"
+                                    [disabled]='isAuthenticating'>{{isAuthenticating?'Authenticating...':'Login'}}</button>&nbsp;
+                                <a mat-raised-button color='accent' href="../">Back</a>
+                            </div>
+                            <div class='alert alert-warning text-center font-weight-bolder' *ngIf="message">
+                                {{message}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

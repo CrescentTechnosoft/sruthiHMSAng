@@ -1,0 +1,197 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="background-All">
+                <div class="row">
+                    <div class="col">
+                        <label style="font-size: 18px;font-weight: bold;" class="ml-lg-2">&nbsp;Patient Details</label>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <div class="row pl-2">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                            <input type="search" placeholder="Search for Patients(ID,Name,Mobile)" autocomplete="off"
+                                class="form-control form-control-sm" (keyup)='searchPatients($event)'>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-lg-1 col-md-1 col-sm-2 col-4">
+                            <label class="badge">Bill Year</label>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-3 col-8">
+                            <select class="form-control form-control-sm" [(ngModel)]='inputs.year'
+                                (change)='getIPNos()'>
+                                <option value="">Select</option>
+                                <option *ngFor='let year of years'>{{year}}</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-4">
+                            <label class="badge">IP No</label>
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-sm-4 col-8">
+                            <select class="form-control form-control-sm" [(ngModel)]='inputs.ipNo'
+                                (change)='getLabDatas()'>
+                                <option value="">Select</option>
+                                <option *ngFor='let ipNo of ipNos' [value]='ipNo.treatmentId'
+                                    [text]='ipNo.ipNo+" - "+ipNo.refNo'></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-1 pb-2">
+                        <div class="col-lg-1 col-md-1 col-sm-2 col-4">
+                            <label class="badge">Patient ID</label>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-3 col-8">
+                            <input class="form-control form-control-sm" [value]='inputs.ptId' readonly />
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-4">
+                            <label class="badge">Patient Name</label>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-5 col-8 mt-lg-0 mt-1">
+                            <input class="form-control form-control-sm" [value]='inputs.name' readonly />
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-2 col-4">
+                            <label class="badge">Age</label>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-3 col-8 mt-sm-0 mt-1">
+                            <input class="form-control form-control-sm" [value]='inputs.age' readonly />
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-2 col-4">
+                            <label class="badge">Gender</label>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-5 col-8 mt-1">
+                            <input class="form-control form-control-sm" [value]='inputs.gender' readonly>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-4">
+                            <label class="badge">Consultant</label>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-3 col-8 mt-1">
+                            <input class="form-control form-control-sm" [value]='inputs.consultant' readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-2">
+        <div class="col">
+            <div class="background-All">
+                <div class="row">
+                    <div class="col">
+                        <label style="font-size: 18px;font-weight: bold;" class="ml-lg-2">&nbsp;Lab Results</label>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <div class="table-responsive" style="min-height: 300px;max-height: 300px;">
+                            <table class="table table-bordered table-hover table-sm table-striped" id="tblLabResult"
+                                style="font-size: small;">
+                                <thead>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Test Name</th>
+                                        <th>Test Field</th>
+                                        <th>Result</th>
+                                        <th>Method</th>
+                                        <th>Result Type</th>
+                                        <th>Select</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor='let field of testFields;let ind=index;'>
+                                        <td>{{field.category}}</td>
+                                        <td>{{field.test}}</td>
+                                        <td>{{field.field}}</td>
+                                        <td><input [(ngModel)]='field.result' (keyup)='toggleFocus($event,ind)'
+                                                (blur)='toggleState(ind,$event.target.value)' [attr.list]='"data"+ind'>
+                                            <datalist [id]='"data"+ind'>
+                                                <option *ngFor='let val of field.parameters' [value]='val'>
+                                            </datalist>
+                                        </td>
+                                        <td>{{field.method}}</td>
+                                        <td>
+                                            <select [(ngModel)]='field.norm'>
+                                                <option value="N">Normal</option>
+                                                <option value="L">Low</option>
+                                                <option value="H">High</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <mat-slide-toggle [(ngModel)]='field.selected'></mat-slide-toggle>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col text-center">
+                    <mat-slide-toggle [(ngModel)]='headerState' matTooltip='Print Report with Header'>Header
+                    </mat-slide-toggle>&nbsp;
+                    <mat-slide-toggle [(ngModel)]='selectedOnly' matTooltip='Print only selected Results'>Selected Only
+                    </mat-slide-toggle>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center">
+                    <button class="btn btn-success btn-sm" (click)='saveLabResults()'>Save</button>
+                    <button class="btn btn-danger btn-sm" (click)='deleteLabResult()'
+                        [disabled]='!inputs.saved'>Delete</button>
+                    <button class="btn btn-warning btn-sm" (click)='printResult()'
+                        [disabled]='!inputs.saved'>Print</button>
+                    <button class="btn btn-primary btn-sm mt-lg-0 mt-1" (click)='clearPage()'>
+                        Clear</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center">
+                    <label class="badge"><span class="text-danger fa fa-asterisk" style="font-size: 7px;"></span>
+                        Save the Bill before Printing Selected Tests</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #patientsTemplate>
+    <div class="modal-title text-center">
+        <h4 class="green font-weight-bold">Patients List</h4>
+    </div>
+    <div class="row">
+        <div class="table-responsive" style="max-height:200px;">
+            <table id="tblPatientList" class="table table-bordered table-sm">
+                <thead>
+                    <th>Admission Year</th>
+                    <th>IP No</th>
+                    <th>Ref No</th>
+                    <th>Name</th>
+                    <th>Phone No</th>
+                    <th>Select</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let patient of patientsList;let ind=index;'>
+                        <td>{{patient.year}}</td>
+                        <td>{{patient.ipNo}}</td>
+                        <td>{{patient.refNo}}</td>
+                        <td>{{patient.name}}</td>
+                        <td>{{patient.contact}}</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary" (click)='setSelectedPatient(ind)'>
+                                <i class="fa fa-check-circle"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row mt-2 text-center">
+        <div class="col">
+            <button class="btn btn-primary" mat-dialog-close>Close</button>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,28 @@
+.mat-yellow {
+  background-color: #e8e804;
+  color: black;
+}
+
+.mat-yellow,
+.mat-accent {
+  margin-right: 10px;
+}
+
+.mat-raised-button{
+    margin-right: 3px;
+}
+
+.custom-purple {
+  background-color: blueviolet;
+  color: azure;
+}
+
+.custom-purple:hover {
+  background-color: #6d1eb5;
+  color: azure;
+}
+
+.ui-menu { width: 150px; }
+.ui-widget{
+    font-family: inherit;
+}

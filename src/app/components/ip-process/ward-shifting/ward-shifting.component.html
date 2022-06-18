@@ -1,0 +1,95 @@
+<div class="container">
+    <br>
+    <div class="background-All pb-2 pl-2 pr-2">
+        <label style="font-size: 18px;font-weight: bold;" class="ml-lg-2">&nbsp;Patient Details</label>
+        <hr>
+        <div class="row">
+            <div class="col-4 col-lg-1">
+                <label class="badge">Bill Year</label>
+            </div>
+            <div class="col-8 custom-col-1">
+                <select class="form-control form-control-sm" [(ngModel)]='inputs.year' (change)="getIPNos()">
+                    <option value="">Select</option>
+                    <option *ngFor='let year of years'>{{year}}</option>
+                </select>
+            </div>
+            <div class="col-4 custom-col-05">
+                <label class="badge">IP No</label>
+            </div>
+            <div class="col-8 custom-col-1 mt-lg-0 mt-1">
+                <select class="form-control form-control-sm" [(ngModel)]='inputs.ipNo' (change)="getPatientDetails()">
+                    <option value="">Select</option>
+                    <option *ngFor='let ipNo of ipNos' [value]='ipNo.id' [text]='ipNo.ipNo'></option>
+                </select>
+            </div>
+            <div class="col-4 col-lg-1">
+                <label class="badge">Patient ID</label>
+            </div>
+            <div class="col-8 custom-col-1 mt-lg-0 mt-1">
+                <input class="form-control form-control-sm" readonly [value]='inputs.ptId' />
+            </div>
+            <div class="col-4 col-lg-1">
+                <label class="badge">Patient Name</label>
+            </div>
+            <div class="col-8 col-lg-2">
+                <input class="form-control form-control-sm" readonly [value]='inputs.name' />
+            </div>
+
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-6 border">
+            <div class="background-All pb-2 pl-2 pr-2">
+                <label style="font-size: 18px;font-weight: bold;" class="ml-lg-2">&nbsp;Current Ward Details</label>
+                <hr>
+                <label class="badge badge-info">Ward Name</label>
+                <input class="form-control form-control-sm" readonly [value]='inputs.ward'>
+                <label class="badge badge-info">Room Name</label>
+                <input class="form-control form-control-sm" readonly [value]='inputs.room'>
+                <label class="badge badge-info">Bed No</label>
+                <input class="form-control form-control-sm" readonly [value]='inputs.bed'>
+                <label class="badge badge-info">Rent</label>
+                <input class="form-control form-control-sm mb-2" readonly [value]='inputs.rent | number : "1.2-2"'>
+            </div>
+        </div>
+        <div class="col-lg-6 border">
+            <div class="background-All pb-2 pl-2 pr-2">
+                <label style="font-size: 18px;font-weight: bold;" class="ml-lg-2">&nbsp;Shifting Ward Details</label>
+                <hr>
+                <div class="table-responsive" style="max-height: 200px;">
+                    <table id="tblWardShift" class="table table-bordered table-sm" style="font-size:small;">
+                        <thead>
+                            <tr>
+                                <th>Floor Name</th>
+                                <th>Ward Name</th>
+                                <th>Room No</th>
+                                <th>Bed No</th>
+                                <th>Rent</th>
+                                <th>Select</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let room of rooms' [ngClass]='{"selected":room.id==selectedRoom}'>
+                                <td>{{room.floor}}</td>
+                                <td>{{room.ward}}</td>
+                                <td>{{room.room}}</td>
+                                <td>{{room.bed}}</td>
+                                <td>{{room.rent | number : '1.2-2'}}</td>
+                                <td><button (click)='setSelectedRoom(room.id)' class="btn btn-sm btn-success">
+                                    <i class="fas fa-check"></i>
+                                </button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4 pb-2">
+        <div class="col text-center">
+            <button class="btn btn-success btn-sm mr-1" (click)="shiftWard()" [disabled]='isShifting'>{{isShifting?'Shifting...':'Shift Ward'}}</button>
+            <button class="btn btn-secondary  btn-sm" (click)='clearPage()'>Clear</button>
+        </div>
+    </div>
+</div>

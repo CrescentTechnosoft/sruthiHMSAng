@@ -1,0 +1,154 @@
+<div class="container">
+    <div class=" pl-2 pr-2 pb-2 background-All">
+        <div class="row">
+            <div class="col">
+                <label style="font-size: 18px;font-weight: bold;" class="ml-lg-2">&nbsp;Patient Details</label>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class=" col-lg-3">
+                <label class="badge">Bill Year</label>
+                <select class="form-control form-control-sm" [(ngModel)]='inputs.year' (change)='getIPNos()'>
+                    <option value="">Select</option>
+                    <option *ngFor='let year of years' [value]='year' [text]='year'></option>
+                </select>
+            </div>
+            <div class=" col-lg-3">
+                <label class="badge">IP No</label>
+                <select class="form-control form-control-sm" [(ngModel)]='inputs.ipNo' (change)='getPatientDetails()'>
+                    <option value="">Select</option>
+                    <option *ngFor='let ipNo of ipNos' [value]='ipNo.id' [text]='ipNo.ipNo'></option>
+                </select>
+            </div>
+        </div>
+        <br />
+        <div class=" row">
+            <div class=" col-lg-2">
+                <label class="badge">Patient ID</label>
+                <input class="form-control form-control-sm" [value]='inputs.ptId' readonly />
+            </div>
+            <div class=" col-lg-3">
+                <label class="badge">Patient Name</label>
+                <input class="form-control form-control-sm" [value]='inputs.name' readonly>
+            </div>
+            <div class=" col-lg-2">
+                <label class="badge">Age</label>
+                <input class="form-control form-control-sm" [value]='inputs.age' readonly />
+            </div>
+            <div class=" col-lg-2">
+                <label class="badge">Gender</label>
+                <input class="form-control form-control-sm" [value]='inputs.gender' readonly />
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class=" pl-2 pr-2 pb-2 background-All">
+        <div class="row">
+            <div class="col">
+                <label style="font-size: 18px;font-weight: bold;" class="ml-lg-2">&nbsp;Advance Details</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <label>Advance Amount</label>
+                <input type="number" inputmode="numeric" class="form-control" [(ngModel)]='inputs.advance'>
+                <div class="text-center mt-2">
+                    <button mat-raised-button color='primary' (click)='saveAdvance()' *ngIf='!editMode'
+                        [disabled]='isSaving'>{{isSaving?'Saving...':'Save'}}</button>&nbsp;
+                    <button mat-raised-button color='primary' (click)='updateAdvance()' *ngIf='editMode'
+                        [disabled]='isUpdating'>{{isUpdating?'Updating...':'Update'}}</button>
+                    <button mat-raised-button color='warn' (click)='clearPage()'>Reset</button>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-5 col-12">
+                <div>
+                    <label class="badge">
+                        Paying Type :</label>
+                </div>
+                <mat-radio-group [(ngModel)]='inputs.payType' (click)='showCardDialog($event.target.innerText)'>
+                    <mat-radio-button *ngFor='let payType of paymentMethods;' [value]='payType'>{{payType}}
+                    </mat-radio-button>
+                </mat-radio-group>
+                <div class="input-group" *ngIf='inputs.payType==="Others"'>
+                    <mat-form-field>
+                        <mat-label>Other Payment</mat-label>
+                        <input matInput [matAutocomplete]='otherType' [(ngModel)]='inputs.otherPayType' />
+                        <mat-autocomplete #otherType='matAutocomplete'>
+                            <mat-option *ngFor='let type of payTypes;' [value]='type'>{{type}}</mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class=" col-md-8">
+                <div class="wells">
+                    <div class="table-responsive" style="min-height: 150px;max-height:150px;">
+                        <table class="table table-bordered" id="tblAdvanceList">
+                            <thead>
+                                <tr>
+                                    <th>Rec No</th>
+                                    <th>Amount</th>
+                                    <th>Date</th>
+                                    <th>Edit</th>
+                                    <th>Print</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor='let advance of advances;let ind=index;'>
+                                    <td [textContent]='advance.advNo'></td>
+                                    <td [textContent]='advance.amount'></td>
+                                    <td [textContent]='advance.date | date'></td>
+                                    <td><button mat-mini-fab (click)='editAdvance(ind)' color='primary'><i
+                                                class="material-icons">edit</i></button></td>
+                                    <td><button mat-mini-fab (click)='printAdvance(advance.id)'><i
+                                                class="material-icons">print</i></button></td>
+                                    <td><button mat-mini-fab color='warn' (click)='deleteAdvance(advance.id)'><i
+                                                class="material-icons">delete</i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <br />
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<ng-template #cardTemplate>
+    <div class="modal-title text-center" style="width: 100%;">
+        <h4 class="green font-weight-bold">
+            Card Details</h4>
+    </div>
+    <div class="row">
+        <mat-form-field>
+            <mat-label>Card No</mat-label>
+            <input matInput [(ngModel)]='inputs.cardNo' autocomplete="off" />
+        </mat-form-field>
+    </div>
+    <div class="row">
+        <mat-form-field>
+            <mat-label>Card Type</mat-label>
+            <input matInput [matAutocomplete]='otherType' [(ngModel)]='inputs.cardType'>
+            <mat-autocomplete #otherType='matAutocomplete'>
+                <mat-option *ngFor='let type of cardTypes;' [value]='type'>{{type}}</mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
+    <div class="row">
+        <mat-form-field>
+            <mat-label>Card Expiry</mat-label>
+            <input type="date" matInput [(ngModel)]='inputs.cardExpiry' autocomplete="off" />
+        </mat-form-field>
+    </div>
+    <div class="row text-center">
+        <div class="col">
+            <button class="btn btn-primary" mat-dialog-close>Close</button>
+        </div>
+    </div>
+</ng-template>

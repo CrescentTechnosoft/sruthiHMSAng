@@ -1,0 +1,100 @@
+<div class="container">
+    <div class="background-All pb-2 pl-2 pr-2">
+        <div class="row pt-2" *ngIf='editMode'>
+            <div class="col-md-5 col-8">
+                <label>Tests</label>
+                <ng-select [(ngModel)]="inputs.search" (change)='getTestDetails()'>
+                    <ng-option *ngFor="let test of tests" [value]="test.id">{{test.test}}</ng-option>
+                </ng-select>
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col-md-3 col-sm-4">
+                <label class="badge">Test Category&nbsp;<span class="fa fa-asterisk text-danger" style="font-size:7px;"></span></label>
+
+                <div class="input-group" *ngIf='!catAddMode;else catAdd;'>
+                    <select class="form-control form-control-sm" [(ngModel)]='inputs.category'>
+                        <option value="">Select</option>
+                        <option *ngFor='let cat of categories' [value]="cat">{{cat}}</option>
+                    </select>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary btn-sm mr-0" (click)='catAddMode=true'>
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-danger btn-sm" (click)='removeCategory()'>
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <ng-template #catAdd>
+                    <div class="input-group">
+                        <input class="form-control form-control-sm" [(ngModel)]='inputs.txtCategory' (blur)='inputs.category=$event.target.value' />
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary btn-sm mr-0" (click)='addCategory()'>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary btn-sm" (click)='catAddMode=false'>
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+            <div class="col-md-3 col-sm-4">
+                <label class="badge">Test Name&nbsp;<span class="fa fa-asterisk text-danger" style="font-size:7px;"></span></label>
+                <input class="form-control form-control-sm" [(ngModel)]='inputs.test'>
+            </div>
+            <!-- <div class="col-md-3 col-sm-4">
+                <label class="badge">Short Name&nbsp;</label>
+                <input class="form-control form-control-sm" [(ngModel)]='inputs.short'>
+            </div> -->
+            <div class="col-md-3 col-sm-4">
+                <label class="badge">Test Cost&nbsp;<span class="fa fa-asterisk text-danger" style="font-size:7px;"></span></label>
+                <input type="number" inputmode="numeric" class="form-control form-control-sm" [(ngModel)]='inputs.fees'>
+            </div>
+            <div class="col-md-3 col-sm-4">
+                <label class="badge">Test Method</label>
+                <input class="form-control form-control-sm" [(ngModel)]='inputs.method'>
+            </div>
+            <div class="col-md-3 col-sm-4">
+                <label class="badge">Sample</label>
+                <input class="form-control form-control-sm" [(ngModel)]='inputs.sample'>
+            </div>
+            <div class="col-md-3 col-sm-4">
+                <label class="badge">Units</label>
+                <input class="form-control form-control-sm" [(ngModel)]='inputs.units'>
+            </div>
+            <div class="col-md-3 col-sm-4">
+                <label class="badge">Parameters (Comma Seperated)</label>
+                <input class="form-control form-control-sm" [(ngModel)]='inputs.parameters'>
+            </div>
+            <div class="col-md-3 col-sm-4">
+                <label class="badge">Comments</label>
+                <textarea class="form-control" [(ngModel)]='inputs.comment'></textarea>
+            </div>
+            <div class="col-md-3 col-sm-4">
+                <label class="badge">Reference Range</label>
+                <textarea class="form-control" [(ngModel)]='inputs.normal'></textarea>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="background-All pb-2 pl-2 pr-2">
+        <div class="row">
+            <div class="col-12 mt-2 text-center">
+                <button class="btn btn-success btn-sm" (click)='saveTest()' [disabled]='isSaving' *ngIf='!editMode;else edit;'>{{isSaving?'Saving...':'Save'}}</button>
+
+                <button class="btn btn-primary btn-sm" (click)='view()'>View</button>
+                <ng-template #edit>
+                    <button class="btn btn-success btn-sm" (click)='updateTest()' [disabled]='isSaving'>{{isUpdating?'Updating...':'Update'}}</button>
+                    <button class="btn btn-danger btn-sm" (click)='deleteTest()' [disabled]='isDeleting'>{{isDeleting?'Deleting...':'Delete'}}</button>
+                </ng-template>
+                <button class="btn btn-secondary btn-sm" (click)='clearPage()'>Reset</button>
+            </div>
+        </div>
+    </div>
+</div>

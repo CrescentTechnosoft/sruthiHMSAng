@@ -1,0 +1,99 @@
+/* 
+    Created on : 15-May-2019, 11:50:11
+    Author     : Azar
+*/
+
+.ui-widget {
+  font-size: small;
+}
+
+.ui-menu .ui-menu-item a {
+  color: Aqua;
+  border-radius: 0px;
+  border: 1px solid #454545;
+}
+
+input[type="radio"]:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #d1d3d1;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 5px solid white;
+}
+
+input[type='radio']:checked:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #1F54E1;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 5px solid white;
+}
+
+.customButton {
+  background-color: transparent;
+  color: #1F54E1;
+}
+
+.selected {
+  background-color: #1F54E1;
+  color: White;
+}
+
+.card {
+  padding: 5px 0px;
+}
+
+.card .btn {
+  opacity: 0;
+  visibility: hidden;
+  text-decoration: none;
+  padding: 0px 5px;
+  margin: 0px 5px;
+  transition: ease-in-out 1s;
+  transform: translate(0%, 0%);
+}
+
+.card .card-img-top {
+  transition: ease-in-out 1s;
+  width: 50%;
+  margin-left: 25%;
+  height: 80px;
+}
+
+.card:hover .card-img-top {
+  transform: translate(0%, 100%);
+  opacity: 0;
+  transition-duration: 1s 2s;
+}
+
+.card:hover .btn {
+  transition-duration: 1s;
+  transform: translate(0%, 50%);
+  opacity: 1;
+  visibility: visible;
+}
+
+.btn-sm {
+  padding: .25rem .5rem;
+}
+
+table {
+  width: 100%;
+}
+
+table th{
+    background-color: #fff;
+}
+

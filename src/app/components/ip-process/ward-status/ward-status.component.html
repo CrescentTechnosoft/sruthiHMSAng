@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="background-All p-2">
+        <div class="row">
+            <div class="col text-center">
+                <label><span class="fa fa-square" style="color: #dd5e5e"></span> = Room Occupied</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-3">
+                <input class='form-control' [(ngModel)]='search' placeholder="Search by Name">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-sm">
+                        <thead>
+                            <tr>
+                                <th>Admission Year</th>
+                                <th>IP No</th>
+                                <th>Room Name</th>
+                                <th>Bed No</th>
+                                <th>Rent</th>
+                                <th>Patient Name</th>
+                                <th>Age</th>
+                                <th>Gender</th>
+                                <th>Contact</th>
+                                <th>Consultant</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor='let room of rooms;let ind=index'>
+                                <tr *ngIf='ind!==0 && (room.floor!==rooms[ind-1].floor || room.ward!==rooms[ind-1].ward)'>
+                                    <td colspan="10">&nbsp;</td>
+                                </tr>
+                                <tr class="header" *ngIf='ind===0 || (room.floor!==rooms[ind-1].floor || room.ward!==rooms[ind-1].ward)'>
+                                    <td colspan="5">Floor Name : {{room.floor}}</td>
+                                    <td colspan="5">Ward Name : {{room.ward}}</td>
+                                </tr>
+                                <tr [ngClass]='{occupied:room.status}' *ngIf='search==="" || room.name.toLowerCase().includes(search.toLowerCase())'>
+                                    <td>{{room.year}}</td>
+                                    <td>{{room.ipNo}}</td>
+                                    <td>{{room.room}}</td>
+                                    <td>{{room.bedNo}}</td>
+                                    <td>{{room.rent | number:'1.2-2'}}</td>
+                                    <td>{{room.name}}</td>
+                                    <td>{{room.age}}</td>
+                                    <td>{{room.gender}}</td>
+                                    <td>{{room.contact}}</td>
+                                    <td>{{room.consultant}}</td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

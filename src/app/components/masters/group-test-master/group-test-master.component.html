@@ -1,0 +1,99 @@
+<div class="container mt-2">
+    <div class="background-All p-2">
+        <div class="row pt-2" *ngIf='editMode'>
+            <div class="col-md-5 col-8">
+                <label>Tests</label>
+                <ng-select [(ngModel)]="inputs.search" (change)='getTestDetails()'>
+                    <ng-option *ngFor="let test of tests" [value]="test.id">{{test.test}}</ng-option>
+                </ng-select>
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col-md-3 col-sm-6">
+                <label class="badge">Category</label>
+                <select class="form-control form-control-sm" [(ngModel)]='inputs.category'>
+                    <option value="">Select</option>
+                    <option *ngFor='let category of categories'>{{category}}</option>
+                </select>
+            </div>
+            <div class="col-md-3 col-sm-4">
+                <label class="badge">Test Name</label>
+                <input class="form-control form-control-sm" [(ngModel)]='inputs.test' />
+            </div>
+            <div class="col-md-3 col-sm-4">
+                <label class="badge">Test Fees</label>
+                <input type="number" class="form-control form-control-sm" [(ngModel)]='inputs.fees'>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-4">
+                <label class="badge">Field Category</label>
+                <input class="form-control form-control-sm" [(ngModel)]='inputs.fieldCat'>
+            </div>
+            <div class="col-md-3 col-sm-4">
+                <label class="badge">Field Name</label>
+                <input id="txtFieldName" class="form-control form-control-sm" [(ngModel)]='inputs.field'
+                    (keyup)='addField($event,$event.target.value)'>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <label>Fields <mat-icon matTooltip='Drag and drop the fields to change the Field Order' [inline]='true'>info</mat-icon></label>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-md-12">
+                <div class="table-responsive" style="min-height: 250px;max-height: 250px;">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Field Category</th>
+                                <th>Field Name</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody cdkDropList (cdkDropListDropped)='reOrderFields($event)'>
+                            <tr *ngFor='let field of addedFields;let ind=index' cdkDrag>
+                                <td>{{field.category}}</td>
+                                <td>{{field.field}}</td>
+                                <td>
+                                    <!-- <button mat-mini-fab color='accent' (click)='moveUp(ind)'
+                                        matTooltip='Move this Field Above'>
+                                        <i class="material-icons">arrow_drop_up</i>
+                                    </button>&nbsp;
+                                    <button mat-mini-fab color='accent' (click)='moveDown(ind)'
+                                        matTooltip='Move this Field Below'>
+                                        <i class="material-icons">arrow_drop_down</i>
+                                    </button>&nbsp; -->
+                                    <button mat-mini-fab color='primary' (click)='getFieldValue(ind)'
+                                        matTooltip='Edit this Field'>
+                                        <i class="material-icons">edit</i>
+                                    </button>&nbsp;
+                                    <button mat-mini-fab color='warn' (click)='removeField(ind)'
+                                        matTooltip='Remove this Field'>
+                                        <i class="material-icons">delete</i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mt-2 text-center">
+                <button class="btn btn-success btn-sm" (click)='saveTest()' *ngIf='!editMode;else edit'
+                    [disabled]='btnState.isSaving'>{{btnState.isSaving?'Saving...':'Save'}}</button>
+                <button class="btn btn-primary btn-sm" (click)='view()'>View</button>
+                <ng-template #edit>
+                    <button class="btn btn-success btn-sm" (click)='updateTest()'
+                        [disabled]='btnState.isUpdating'>{{btnState.isUpdating?'Updating...':'Update'}}</button>
+                    <button class="btn btn-danger btn-sm" (click)='deleteTest()'
+                        [disabled]='btnState.isDeleting'>{{btnState.isDeleting?'Deleting...':'Delete'}}</button>
+                </ng-template>
+                <button class="btn btn-secondary btn-sm" (click)='clearPage()'>Reset</button>
+            </div>
+        </div>
+    </div>
+</div>

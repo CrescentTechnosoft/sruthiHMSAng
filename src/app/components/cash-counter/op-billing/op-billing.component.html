@@ -1,0 +1,316 @@
+<div [formGroup]='formGroup'>
+    <div class="container-fluid">
+        <div class="pl-2 pr-2 background-All">
+            <div class="row">
+                <div class="col">
+                    <label style="font-size: 18px;font-weight: bold;" class="ml-lg-2">&nbsp;Patient Details</label>
+                </div>
+            </div>
+            <div class="row" *ngIf='editMode'>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+                    <label class="badge">Bill Year</label>
+                    <select class="form-control" (change)="getBillNos()" formControlName='year'>
+                        <option value="">--Select--</option>
+                        <option *ngFor='let year of billYears' [value]='year'>{{year}}</option>
+                    </select>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+                    <label class="badge">Bill No</label>
+                    <select class="form-control" formControlName='billNo' (change)='getBillDetails()'>
+                        <option value="">--Select--</option>
+                        <option *ngFor='let bill of billNos' [value]='bill.id'>{{bill.billNo}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-2" *ngIf='!editMode'>
+                <div class="col-lg-3 col-md-3 col-sm-5 col-12">
+                    <input type="search" placeholder="Search for Patients(Name,Mobile)"
+                        class="form-control form-control-sm" (keyup)='searchPatients($event)' formControlName='search'>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-lg-1 col-md-1 col-sm-2 col-4">
+                    <label class="badge">Patient ID</label>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-3 col-8">
+                    <select class="form-control form-control-sm" (change)="getPatientDetails()" formControlName='ptId'
+                        *ngIf='!editMode'>
+                        <option value="">--select--</option>
+                        <option *ngFor='let id of pidList' [value]="id">{{id}}</option>
+                    </select>
+                    <input class="form-control form-control-sm" *ngIf="editMode" disabled value='{{formGroup.get("oldPtId").value}}'/>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-2 col-4">
+                    <label class="badge">
+                        Patient Name</label>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-4 col-8  mt-lg-0 mt-1">
+                    <input class="form-control form-control-sm" disabled value='{{formGroup.get("name").value}}'/>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-2 col-4">
+                    <label class="badge">
+                        Age</label>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-3 col-8 mt-lg-0 mt-1">
+                    <input class="form-control form-control-sm" disabled value='{{formGroup.get("age").value}}' />
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-2 col-4">
+                    <label class="badge">
+                        Gender</label>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-3 col-8 mt-lg-0 mt-1">
+                    <input class="form-control form-control-sm" disabled value='{{formGroup.get("gender").value}}' />
+                </div>
+            </div>
+            <div class="row mt-lg-1">
+                <div class="col-lg-1 col-md-1 col-sm-2 col-4">
+                    <label class="badge">Phone No</label>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-3 col-8  mt-lg-0 mt-1">
+                    <input class="form-control form-control-sm" disabled value='{{formGroup.get("contact").value}}' />
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-2 col-4">
+                    <label class="badge">
+                        Consultant</label>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-4 col-8 mt-lg-0 mt-1">
+                    <select class="form-control form-control-sm" formControlName='consultant'>
+                        <option value="">Select</option>
+                        <option *ngFor="let cons of consList" [value]='cons.id'>{{cons.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <br>
+        </div>
+        <hr>
+        <div class=" pl-2 pr-2 background-All">
+            <div class="row">
+                <div class="col">
+                    <label style="font-size: 18px;font-weight: bold;">&nbsp;Bill Details</label>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-12">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-5">
+                            <mat-form-field appearance='outline'>
+                                <mat-label>Fees Type</mat-label>
+                                <input #feesType matInput [matAutocomplete]='feesTypeAutoComplete'
+                                    formControlName='feesType' (keyup)='getFees($event)' />
+                                <mat-autocomplete #feesTypeAutoComplete="matAutocomplete">
+                                    <mat-option *ngFor='let filtered of filteredFeesTypes$ | async' [value]='filtered'>
+                                        {{filtered}}</mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-3">
+                            <mat-form-field appearance='outline'>
+                                <mat-label>Cost</mat-label>
+                                <input #cost matInput type="number" inputmode="numeric" (keyup)="addFees($event)"
+                                    formControlName='cost' />
+                            </mat-form-field>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-md-7 col-12 tabPanel table-responsive">
+                    <table class="table table-bordered table-hover table-sm">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Category
+                                </th>
+                                <th>
+                                    Fees Type
+                                </th>
+                                <th>
+                                    Fees
+                                </th>
+                                <th>
+                                    Discount
+                                </th>
+                                <th>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container formArrayName='addedFees'
+                                *ngFor='let fees of addedFees.controls;let ind=index'>
+                                <tr [formGroupName]='ind'>
+                                    <td>{{fees.get('category').value}}</td>
+                                    <td>{{fees.get('feesType').value}}</td>
+                                    <td>{{fees.get('cost').value | number:'1.2-2'}}</td>
+                                    <td>
+                                        <input type="number" formControlName='discount' (keyup)='calculateTotal()'>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-outline-danger btn-sm" (click)='removeFees(ind)'>
+                                            <i class="fa fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-12">
+                    <div>
+                        <label class="badge">
+                            Paying Type :</label>
+                    </div>
+                    <mat-radio-group formControlName='payType' (click)='showCardDialog($event.target.innerText)'>
+                        <mat-radio-button *ngFor='let payType of payTypes;' [value]='payType'>{{payType}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                    <div class="input-group" *ngIf='formGroup.get("payType").value==="Others"'>
+                        <mat-form-field>
+                            <mat-label>Other Payment</mat-label>
+                            <input matInput [matAutocomplete]='otherType' formControlName='otherType' />
+                            <button matSuffix mat-icon-button color='primary' (click)='addPayType()'>
+                                <i class="material-icons">add_circle</i>
+                            </button>
+                            <button matSuffix mat-icon-button color='warn' (click)='removePayType()'>
+                                <i class="material-icons">remove_circle</i>
+                            </button>
+                            <mat-autocomplete #otherType='matAutocomplete'>
+                                <mat-option *ngFor='let type of paymentMethods;' [value]='type'>{{type}}</mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-7 col-12">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-3 col-4">
+                            <label class="badge">Total Amount</label>
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-8">
+                            <input [value]='formGroup.get("total").value' class="form-control form-control-sm"
+                                readonly />
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-4">
+                            <label class="badge">Discount</label>
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-8">
+                            <input [value]='formGroup.get("discount").value' class="form-control form-control-sm"
+                                readonly />
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-4">
+                            <label class="badge">Sub Total</label>
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-8">
+                            <input [value]='formGroup.get("subTotal").value' class="form-control form-control-sm"
+                                readonly />
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-4">
+                            <label class="badge">Paid Amount</label>
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-8">
+                            <input type="number" inputmode="numeric" formControlName='paying'
+                                class="form-control form-control-sm" (keyup)='changePayingAmount()' />
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-4">
+                            <label class="badge">Due Amount</label>
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-8">
+                            <input [value]='formGroup.get("due").value' class="form-control form-control-sm" readonly />
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-4">
+                            <label class="badge">Refund Amount</label>
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-8">
+                            <input [value]='formGroup.get("refund").value' class="form-control form-control-sm"
+                                readonly />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <div class="text-center">
+                        <button class="btn btn-success btn-sm" (click)='saveBill()' [disabled]='editMode'>Save</button>
+                        <button class="btn btn-secondary btn-sm" (click)='view()'>View</button>
+                        <button class="btn btn-info btn-sm" (click)='updateBillDetails()'
+                            [disabled]='!editMode'>Update</button>
+                        <button class="btn btn-danger btn-sm" (click)='deleteBill()'
+                            [disabled]='!editMode'>Delete</button>
+                        <button class="btn btn-warning btn-sm" (click)='PrintBill()'
+                            [disabled]='!editMode'>Print</button>
+                        <button class="btn btn-primary btn-sm" (click)='resetPage()'>Clear</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template #cardTemplate>
+        <div class="modal-title text-center" style="width: 100%;">
+            <h4 class="green font-weight-bold">Card Details</h4>
+        </div>
+        <div class="row">
+            <mat-form-field>
+                <mat-label>Card No</mat-label>
+                <input matInput formControlName='cardNo' autocomplete="off" />
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field>
+                <mat-label>Card Type</mat-label>
+                <input matInput [matAutocomplete]='otherType' formControlName='cardType'>
+                <button matSuffix mat-icon-button color='primary' (click)='addCardType()'>
+                    <i class="material-icons">add_circle</i>
+                </button>
+                <button matSuffix mat-icon-button color='warn' (click)='removeCardType()'>
+                    <i class="material-icons">remove_circle</i>
+                </button>
+                <mat-autocomplete #otherType='matAutocomplete'>
+                    <mat-option *ngFor='let type of cardTypes;' [value]='type'>{{type}}</mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field>
+                <mat-label>Card Expiry</mat-label>
+                <input type="date" matInput formControlName='cardExpiry' autocomplete="off" />
+            </mat-form-field>
+        </div>
+        <div class="row text-center">
+            <div class="col">
+                <button class="btn btn-primary" mat-dialog-close>Close</button>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #patientsTemplate>
+        <div class="modal-title text-center" style="width: 100%;">
+            <h4 class="green font-weight-bold">Patients List</h4>
+        </div>
+        <div class="table-responsive" style="max-height:200px;">
+            <table id="tblPatientList" class="table table-bordered table-sm">
+                <thead>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Phone No</th>
+                    <th>Select</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let patient of searchList'>
+                        <td>{{patient.id}}</td>
+                        <td>{{patient.name}}</td>
+                        <td>{{patient.contact}}</td>
+                        <td>
+                            <button class="btn btn-success btn-sm" (click)='setPatientID(patient.id)'>
+                                <span class="fa fa-location-arrow"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row text-center">
+            <div class="col">
+                <button class="btn btn-primary" mat-dialog-close>Close</button>
+            </div>
+        </div>
+    </ng-template>
+</div>

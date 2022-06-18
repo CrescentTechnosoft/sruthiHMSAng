@@ -1,0 +1,128 @@
+<div class="container">
+    <div class="background-All p-2">
+        <div class="row" *ngIf='isInEditMode'>
+            <div class="col-md-4">
+                <label class="badge">Select Test</label>
+                <ng-select [(ngModel)]="inputs.searchTest" (change)='getTestDetails()'>
+                    <ng-option *ngFor="let test of tests" [value]="test.id">{{test.name}}</ng-option>
+                </ng-select>
+            </div>
+        </div>
+        <div class="row">
+            <div class=" col-lg-3">
+                <label class="badge">Test Category</label>
+                <input type="text" id="txtTestCat" class="form-control form-control-sm" [(ngModel)]='inputs.category' />
+
+            </div>
+
+            <div class=" col-lg-3">
+                <label class="badge">Test Name</label>
+                <input class="form-control form-control-sm" [(ngModel)]='inputs.test'>
+
+            </div>
+            <div class="custom-col-1">
+                <label class="badge">Test Fees</label>
+                <input type="number" inputmode="numeric" class="form-control form-control-sm" [(ngModel)]='inputs.fees'>
+            </div>
+        </div>
+        <div class="row">
+            <div class=" col-lg-3">
+                <label class="badge">Field Category</label>
+                <input class="form-control form-control-sm" [(ngModel)]='inputs.fieldCat'>
+            </div>
+            <div class=" col-lg-3">
+                <label class="badge">Test Fields</label>
+                <input class="form-control form-control-sm" [(ngModel)]='inputs.field'>
+            </div>
+            <div class=" col-lg-3">
+                <label class="badge">Test Method</label>
+                <input class="form-control form-control-sm" [(ngModel)]='inputs.method'>
+            </div>
+            <div class=" col-lg-3">
+                <label class="badge">Units</label>
+                <input class="form-control form-control-sm" [(ngModel)]='inputs.units'>
+            </div>
+        </div>
+        <div class="row">
+            <div class=" col-lg-3">
+                <label class="badge">Sample</label>
+                <input class="form-control form-control-sm" [(ngModel)]='inputs.sample'>
+            </div>
+            <div class="col-lg-3">
+                <label class="badge">Reference Range</label>
+                <textarea class="form-control" [(ngModel)]='inputs.normal'></textarea>
+            </div>
+            <div class="col-lg-3">
+                <label class="badge">Comments</label>
+                <textarea class="form-control" [(ngModel)]='inputs.comments'></textarea>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col text-center">
+                <button class="btn btn-outline-primary btn-sm" *ngIf='!isFieldInEditMode' (click)='AddField()'>
+                    <span class="fa fa-arrow-down"> Add</span>
+                </button>
+                <button class="btn btn-outline-primary btn-sm" *ngIf='isFieldInEditMode' (click)='UpdateField()'>
+                    <span class="fa fa-arrow-down"> Update</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-12">
+            <div class="bg-light pb-2 pl-2 pr-2">
+                <label style="font-size: 18px;font-weight: bold;" class="ml-lg-2">&nbsp;Test Field Details</label>
+                <hr style="margin-top: 0px;">
+                <div class="table-responsive" style="max-height: 250px;">
+                    <table class="table table-bordered table-sm">
+                        <thead>
+                            <tr>
+                                <th>Field Category</th>
+                                <th>Field</th>
+                                <th>Method</th>
+                                <th>Sample</th>
+                                <th>Units</th>
+                                <th>Reference Range</th>
+                                <th>Comments</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let field of testFields;let rowIndex=index;'>
+                                <td>{{field.fieldCat}}</td>
+                                <td>{{field.field}}</td>
+                                <td>{{field.method}}</td>
+                                <td>{{field.sample}}</td>
+                                <td>{{field.units}}</td>
+                                <td>{{field.normal}}</td>
+                                <td>{{field.comments}}</td>
+                                <td><button mat-mini-fab color='primary' (click)='SetUpdateValues(rowIndex)'>
+                                        <i class="material-icons">edit</i>
+                                    </button>
+                                </td>
+                                <td><button mat-mini-fab color='warn' (click)='RemoveField(rowIndex)'>
+                                        <i class="material-icons">delete</i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 mt-2 text-center">
+            <button class="btn btn-success btn-sm" (click)='saveTest()' [disabled]='isSaving || isInEditMode'>{{isSaving
+                ? 'Saving...' :
+                'Save' }}</button>
+            <button class="btn btn-info btn-sm" (click)='view()'>View</button>
+            <button class="btn btn-primary btn-sm" (click)='updateTest()' [disabled]='!isInEditMode'>Update</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteTest()" [disabled]='!isInEditMode'>{{isDeleting ?
+                'Deleting...' : 'Delete'
+                }}</button>
+            <button class="btn btn-secondary btn-sm" id="btnReset" (click)="clearPage()">Reset</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,91 @@
+<div class="container">
+    <div class="background-All pb-2 pl-2 pr-2">
+        <div class="form-group">
+            <div class="row">
+                <div class=" col-lg-3">
+                    <label class="badge">Floor Name</label>
+                    <input class="form-control form-control-sm" [(ngModel)]="inputs.floor">
+                </div>
+
+                <div class=" col-lg-3">
+                    <label class="badge">Ward Name</label>
+                    <input class="form-control form-control-sm" [(ngModel)]="inputs.ward">
+                </div>
+                <div class=" col-lg-3">
+                    <label class="badge">Room Name</label>
+                    <input class="form-control form-control-sm" [(ngModel)]="inputs.room">
+                </div>
+            </div>
+            <div class="row">
+                <div class=" col-lg-3">
+                    <label class="badge">Bed No</label>
+                    <input class="form-control form-control-sm" [(ngModel)]="inputs.bedNo">
+                </div>
+                <div class=" col-lg-3">
+                    <label class="badge">Rent</label>
+                    <input type="number" inputmode="numeric" class="form-control form-control-sm"
+                        [(ngModel)]="inputs.rent">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mt-2 text-center">
+                    <button type="button" class="btn btn-success btn-sm" *ngIf='!editMode' (click)='save()'
+                        [disabled]='isSaving'>{{isSaving ? 'Saving...' : 'Save' }}</button>
+                    <button type="button" class="btn btn-success btn-sm" *ngIf='editMode'
+                        (click)='update()' [disabled]='isUpdating'>{{isUpdating ? 'Updating...' : 'Update' }}</button>
+                    <button type="button" class="btn btn-secondary btn-sm" (click)='clearPage()'>Reset</button>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-12">
+                    <div class="text-center">
+                        <h4 class="text-primary font-weight-bold">Room Details</h4>
+                    </div>
+                    <div class="table-responsive" style="max-height: 250px;">
+                        <table class="table table-bordered table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Floor Name</th>
+                                    <th>Ward Name</th>
+                                    <th>Room Name</th>
+                                    <th>Bed No</th>
+                                    <th>Rent</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let room of rooms;let rowIndex=index;"
+                                    [ngClass]="{'occupied':room.occupied}">
+                                    <td>{{room.floor}}</td>
+                                    <td>{{room.ward}}</td>
+                                    <td>{{room.room}}</td>
+                                    <td>{{room.bedNo}}</td>
+                                    <td>{{room.rent | number:'1.2-2'}}</td>
+                                    <td>
+                                        <button mat-mini-fab color='primary' *ngIf="!room.occupied"
+                                            (click)="getUpdateValues(rowIndex)">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button mat-mini-fab color='warn' *ngIf="!room.occupied"
+                                            (click)="deleteRoom(room.id,rowIndex)">
+                                            <i class="material-icons">delete</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <label><span class="fa fa-square" style="color: #bb6262;"></span> = Room Occupied</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

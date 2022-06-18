@@ -1,0 +1,103 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 align-self-center" [formGroup]='formGroup'>
+            <mat-form-field appearance='standard'>
+                <mat-label>Search</mat-label>
+                <input matInput formControlName='search' autocomplete="off"/>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="table-responsive" style="max-height:60vh;overflow: auto;">
+            <table mat-table [dataSource]='dataSource' class="mat-elevation-z8">
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef> ID </th>
+                    <td mat-cell *matCellDef="let patient"> {{patient.id}} </td>
+                </ng-container>
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Name </th>
+                    <td mat-cell *matCellDef="let patient"> {{patient.salutation+'.'+patient.name}} </td>
+                </ng-container>
+                <ng-container matColumnDef="age">
+                    <th mat-header-cell *matHeaderCellDef> Age </th>
+                    <td mat-cell *matCellDef="let patient"> {{patient.age}} </td>
+                </ng-container>
+                <ng-container matColumnDef="gender">
+                    <th mat-header-cell *matHeaderCellDef> Gender </th>
+                    <td mat-cell *matCellDef="let patient"> {{patient.gender}} </td>
+                </ng-container>
+                <ng-container matColumnDef="contact">
+                    <th mat-header-cell *matHeaderCellDef> Contact No </th>
+                    <td mat-cell *matCellDef="let patient"> {{patient.contact}} </td>
+                </ng-container>
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element;">
+                        <button class="btn btn-sm btn-primary" matTooltip='Show Details'
+                            (click)='showProfile(element.id)'>
+                            <i class="fa fa-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-primary" matTooltip='Edit Details'
+                            (click)='goToUpdate(element.uuid)'>
+                            <i class="fa fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-success" matTooltip='Start Billing'
+                            (click)='goToPage(element.id,"cash-counter/op-billing")'>
+                            <i class="fa fa-rupee-sign"></i>
+                        </button>
+                        <button class="btn btn-sm btn-info" matTooltip='Admission Process'
+                            (click)='goToPage(element.id,"ip-process/admission")'>
+                            <i class="fa fa-bed"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" matTooltip='Delete Patient Details'
+                            (click)='deletePatient(element.id)'>
+                            <i class="fa fa-trash-alt"></i>
+                        </button>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </div>
+    <mat-paginator [length]='paginatorSetting.length' [pageSizeOptions]='paginatorCounts'
+        [pageSize]='paginatorSetting.pageSize' #paginator (page)='changeSource()' showFirstLastButtons></mat-paginator>
+</div>
+
+
+<ng-template #profileRef>
+    <div class="row">
+        <div class="col">
+            <h3>Patient Details</h3>
+        </div>
+    </div>
+    <dl class="row">
+        <dt class="col-6">Patient Name </dt>
+        <dd class="col-6">{{profile.name}}</dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-6">Age / Gender </dt>
+        <dd class="col-6">{{profile.age+' / '+profile.gender}}</dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-6">D.O.B </dt>
+        <dd class="col-6">{{profile.dob}}</dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-6">Contact No</dt>
+        <dd class="col-6">{{profile.contact}}</dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-6">Email ID</dt>
+        <dd class="col-6">{{profile.email}}</dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-6">Address</dt>
+        <dd class="col-6">{{profile.address}}</dd>
+    </dl>
+    <div class="row text-center">
+        <div class="col">
+            <button mat-raised-button color='primary' mat-dialog-close>Ok</button>
+        </div>
+    </div>
+</ng-template>

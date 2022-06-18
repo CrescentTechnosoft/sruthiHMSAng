@@ -1,0 +1,19 @@
+<title>{{header}}</title>
+<div class="container body">
+  <div class="main_container">
+    <div class="col-md-3 left_col menu_fixed">
+      <app-side-bar></app-side-bar>
+    </div>
+    <app-top-bar></app-top-bar>
+    <div class="right_col" role="main">
+      <div class="row">
+        <div class="col">
+          <h2 class="header">{{header}}</h2>
+          <hr>
+        </div>
+      </div>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+

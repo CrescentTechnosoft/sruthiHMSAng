@@ -1,0 +1,76 @@
+.swal-overlay {
+    background-color: rgba(224, 255, 255, 0.45);
+}
+
+textArea {
+    resize: none;
+}
+
+tr td::selection,
+tr th::selection {
+    background-color: red;
+    color: white;
+}
+
+.Required {
+    border-color: red;
+    border-radius: 1px;
+}
+
+tr.selected {
+    background-color: rgb(69, 171, 62);
+    color: white;
+}
+
+@media (min-width: 720px) {
+    .custom-col-1 {
+        -ms-flex: 0 0 12.666667%;
+        flex: 0 0 12.666667%;
+        max-width: 12.666667%;
+        position: relative;
+        width: 100%;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+    .custom-col-05 {
+        -ms-flex: 0 0 4.666667%;
+        flex: 0 0 4.666667%;
+        max-width: 4.666667%;
+        position: relative;
+        width: 100%;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+}
+
+.myaccordion {
+    /* max-width: 500px;*/
+    margin: 20px 0px auto;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.myaccordion .card,
+.myaccordion .card:last-child .card-header {
+    border: none;
+}
+
+.myaccordion .card-header {
+    border-bottom-color: #EDEFF0;
+    background: transparent;
+}
+
+.myaccordion .fa-stack {
+    font-size: 16px;
+}
+
+.myaccordion .btn-link {
+    width: 100%;
+    font-weight: bold;
+    color: #004987;
+    padding: 0;
+}
+
+.myaccordion .btn-link:hover,
+.myaccordion .btn-link:focus {
+    text-decoration: none;
+}

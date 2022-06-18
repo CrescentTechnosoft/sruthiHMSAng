@@ -1,0 +1,317 @@
+<div class="container">
+    <div class="background-All pb-2 pl-2 pr-2">
+        <label style="font-size: 18px;font-weight: bold;" class="ml-lg-2">&nbsp;Patient Details</label>
+        <hr>
+        <div class="row">
+            <div class="col-4 col-md-1">
+                <label class="badge">Bill Year</label>
+            </div>
+            <div class="col-8 custom-col-1">
+                <select class="form-control form-control-sm" (change)='getDischargeIPNos()' *ngIf='editMode'
+                    [(ngModel)]='inputs.oldYear'>
+                    <option value="">Select</option>
+                    <option *ngFor='let year of oldYears' [value]='year' [text]='year'></option>
+                </select>
+                <select class="form-control form-control-sm" (change)="getIPNos()" *ngIf='!editMode'
+                    [(ngModel)]='inputs.year'>
+                    <option value="">Select</option>
+                    <option *ngFor='let year of years' [value]='year' [text]='year'></option>
+                </select>
+            </div>
+            <div class="col-4 custom-col-05">
+                <label class="badge">IP No</label>
+            </div>
+            <div class="col-8 custom-col-1 mt-lg-0 mt-1">
+                <select class="form-control form-control-sm" (change)="getDischargeDetails()" *ngIf='editMode'
+                    [(ngModel)]='inputs.oldIPNo'>
+                    <option value="">Select</option>
+                    <option *ngFor='let ipNo of oldIPNos' [value]='ipNo.id' [text]='ipNo.ipNo'></option>
+                </select>
+                <select class="form-control form-control-sm" (change)="getPatientDetails()" *ngIf='!editMode'
+                    [(ngModel)]='inputs.ipNo'>
+                    <option value="">Select</option>
+                    <option *ngFor='let ipNo of ipNos' [value]='ipNo.id' [text]='ipNo.ipNo'></option>
+                </select>
+            </div>
+            <div class="col-4 col-md-1">
+                <label class="badge">Patient ID</label>
+            </div>
+            <div class="col-8 custom-col-1 mt-lg-0 mt-1">
+                <input class="form-control form-control-sm" [value]='inputs.id' readonly />
+            </div>
+            <div class="col-4 col-md-1">
+                <label class="badge">Patient Name</label>
+            </div>
+            <div class="col-8 col-md-3 mt-lg-0 mt-1">
+                <input class="form-control form-control-sm" [value]='inputs.name' readonly />
+            </div>
+        </div>
+        <div class=" row">
+            <div class="col-4 col-md-1">
+                <label class="badge">Age</label>
+            </div>
+            <div class="col-8 custom-col-1 mt-1">
+                <input class="form-control form-control-sm" [value]='inputs.age' readonly />
+            </div>
+            <div class="col-4 custom-col-05">
+                <label class="badge">Gender</label>
+            </div>
+            <div class="col-8 custom-col-1 mt-1">
+                <input class="form-control form-control-sm" [value]='inputs.gender' readonly />
+            </div>
+            <div class="col-4 col-md-1">
+                <label class="badge">Consultant</label>
+            </div>
+            <div class="col-8 col-md-3 mt-1 ml-lg-2">
+                <input class="form-control form-control-sm" [value]='inputs.consultant' readonly />
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="background-All pb-2 pl-2 pr-2">
+        <label style="font-size: 18px;font-weight: bold;" class="ml-lg-2">&nbsp;Discharge Details</label>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <mat-tab-group>
+                    <mat-tab label='History'>
+                        <textarea class="form-control form-control-sm mt-2" [(ngModel)]='inputs.history'></textarea>
+                    </mat-tab>
+                    <mat-tab label='Clinical Exam'>
+                        <div>
+                            <div class="row">
+                                <div class="col">
+                                    <input class="form-control form-control-sm mt-2 mt-lg-0"
+                                        placeholder="Patient Reaction" [(ngModel)]='inputs.pReaction'>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-3">
+                                    <input class="form-control form-control-sm" placeholder="Pulse"
+                                        [(ngModel)]='inputs.pulse'>
+                                </div>
+                                <div class="col-md-3">
+                                    <input class="form-control form-control-sm mt-2 mt-lg-0" placeholder="BP"
+                                        [(ngModel)]='inputs.bp'>
+                                </div>
+                                <div class="col-md-3">
+                                    <input class="form-control form-control-sm mt-2 mt-lg-0" placeholder="HB"
+                                        [(ngModel)]='inputs.hb'>
+                                </div>
+                                <div class="col-md-3">
+                                    <input class="form-control form-control-sm mt-2 mt-lg-0" placeholder="TC"
+                                        [(ngModel)]='inputs.tc'>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-3">
+                                    <input class="form-control form-control-sm" placeholder="WBC"
+                                        [(ngModel)]='inputs.wbc'>
+                                </div>
+                                <div class="col-md-3">
+                                    <input class="form-control form-control-sm mt-2 mt-lg-0" placeholder="Poly"
+                                        [(ngModel)]='inputs.poly'>
+                                </div>
+                                <div class="col-md-3">
+                                    <input class="form-control form-control-sm mt-2 mt-lg-0" placeholder="Lymp"
+                                        [(ngModel)]='inputs.lymp'>
+                                </div>
+                                <div class="col-md-3">
+                                    <input class="form-control form-control-sm mt-2 mt-lg-0" placeholder="Eos"
+                                        [(ngModel)]='inputs.eos'>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-3">
+                                    <input class="form-control form-control-sm" placeholder="M" [(ngModel)]='inputs.m'>
+                                </div>
+                                <div class="col-md-3">
+                                    <input class="form-control form-control-sm mt-2 mt-lg-0" placeholder="B"
+                                        [(ngModel)]='inputs.b'>
+                                </div>
+                                <div class="col-md-3">
+                                    <input class="form-control form-control-sm mt-2 mt-lg-0" placeholder="Blood Sugar"
+                                        [(ngModel)]='inputs.sugar'>
+                                </div>
+                                <div class="col-md-3">
+                                    <input class="form-control form-control-sm mt-2 mt-lg-0" placeholder="Blood Urea"
+                                        [(ngModel)]='inputs.urea'>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-3">
+                                    <input class="form-control form-control-sm" placeholder="Scr"
+                                        [(ngModel)]='inputs.scr'>
+                                </div>
+                                <div class="col-md-3">
+                                    <input class="form-control form-control-sm mt-2 mt-lg-0" placeholder="Crit"
+                                        [(ngModel)]='inputs.crit'>
+                                </div>
+                                <div class="col-md-3">
+                                    <input class="form-control form-control-sm mt-2 mt-lg-0" placeholder="Plat"
+                                        [(ngModel)]='inputs.plat'>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label='Diagnosis'>
+                        <textarea class="form-control form-control-sm mt-2" placeholder="Diagnosis"
+                            [(ngModel)]='inputs.diagnosis'></textarea>
+                    </mat-tab>
+                    <mat-tab label='Investigations'>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="table-responsive" style="max-height: 150px;">
+                                    <table class="table table-bordered table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Investigations</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor='let inv of investigations'>
+                                                <td>{{inv}}</td>
+                                                <td><button class="btn btn-sm btn-success"
+                                                        (click)='addInvestigation(inv)'><span
+                                                            class="fa fa-arrow-right"></span></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <textarea class="form-control form-control-sm"
+                                    [(ngModel)]='inputs.investigation'></textarea>
+                            </div>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label='Surgery'>
+                        <textarea class="form-control form-control-sm mt-2" placeholder="Surgery Details"
+                            [(ngModel)]='inputs.surgery'></textarea>
+                    </mat-tab>
+                    <mat-tab label="Treatment">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="table-responsive" style="max-height: 150px;">
+                                    <table class="table table-bordered table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Treatment</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor='let treat of treatments'>
+                                                <td>{{treat}}</td>
+                                                <td><button class="btn btn-sm btn-success"
+                                                        (click)='addTreatment(treat)'><span
+                                                            class="fa fa-arrow-right"></span></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <textarea class="form-control form-control-sm-2"
+                                    [(ngModel)]='inputs.treatment'></textarea>
+                            </div>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label='Advice'>
+                        <textarea class="form-control form-control-sm mt-2" placeholder="Advice For Patients"
+                            [(ngModel)]='inputs.advice'></textarea>
+                    </mat-tab>
+                    <mat-tab label="Condition">
+                        <textarea class="form-control form-control-sm mt-2" placeholder="Condition On Discharge"
+                            [(ngModel)]='inputs.condition'></textarea>
+                    </mat-tab>
+                    <mat-tab label="Disease">
+                        <textarea class="form-control form-control-sm mt-2" placeholder="Disease"
+                            [(ngModel)]='inputs.disease'></textarea>
+                    </mat-tab>
+                    <mat-tab label="Consultants">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <select class="form-control form-control-sm" [(ngModel)]='inputs.cons1'>
+                                    <option value="">Select</option>
+                                    <option *ngFor='let con of cons' [value]='con.id' [text]='con.name'></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-3">
+                                <select class="form-control form-control-sm" [(ngModel)]='inputs.cons2'>
+                                    <option value="">Select</option>
+                                    <option *ngFor='let con of cons' [value]='con.id' [text]='con.name'></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-3">
+                                <select class="form-control form-control-sm" [(ngModel)]='inputs.cons3'>
+                                    <option value="">Select</option>
+                                    <option *ngFor='let con of cons' [value]='con.id' [text]='con.name'></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-3">
+                                <select class="form-control form-control-sm" [(ngModel)]='inputs.cons4'>
+                                    <option value="">Select</option>
+                                    <option *ngFor='let con of cons' [value]='con.id' [text]='con.name'></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-3">
+                                <select class="form-control form-control-sm" [(ngModel)]='inputs.cons5'>
+                                    <option value="">Select</option>
+                                    <option *ngFor='let con of cons' [value]='con.id' [text]='con.name'></option>
+                                </select>
+                            </div>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Death Details">
+                        <div class="row">
+                            <div class="col-2">
+                                <input class="form-control form-control-sm" placeholder="Death Date"
+                                    [(ngModel)]='inputs.dDate' type="date">
+                            </div>
+                            <div class="col-2">
+                                <input class="form-control form-control-sm" placeholder="Death Time"
+                                    [(ngModel)]='inputs.dTime' type="time">
+                            </div>
+                        </div>
+                        <textarea class="form-control form-control-sm mt-2" placeholder="Death Cause"
+                            [(ngModel)]='inputs.dCause'></textarea>
+                    </mat-tab>
+                    <mat-tab label="Hos.Course">
+                        <textarea class="form-control form-control-sm mt-2" placeholder="Hospital Course"
+                            [(ngModel)]='inputs.hCourse'></textarea>
+                    </mat-tab>
+                    <mat-tab label="Report">
+                        <textarea class="form-control form-control-sm mt-2" placeholder="Report to the Hospital"
+                            [(ngModel)]='inputs.report'></textarea>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </div>
+    </div>
+    <div class="row text-center mt-2">
+        <div class="col-12">
+            <button class="btn btn-success btn-sm" (click)="saveDischarge()" [disabled]='editMode || isSaving'>
+                {{isSaving?'Saving...':'Save'}}</button>
+            <button class="btn btn-secondary btn-sm" (click)='view()'>
+                View</button>
+            <button class="btn btn-info btn-sm" (click)="modifyDischarge()" [disabled]='!editMode || isUpdating'>
+                {{isUpdating?'Updating...':'Update'}}</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteDischarge()" [disabled]='!editMode || isDeleting'>
+                {{isDeleting?'Deleting...':'Delete'}}</button>
+            <button class="btn btn-warning btn-sm" (click)='printDischarge()' [disabled]='!editMode'>
+                Print</button>
+            <button class="btn btn-primary btn-sm" (click)='clearPage()'>
+                Clear</button>
+        </div>
+    </div>
+</div>

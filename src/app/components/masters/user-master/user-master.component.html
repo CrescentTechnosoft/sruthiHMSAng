@@ -1,0 +1,150 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="background-All pb-2 pl-2 pr-2">
+                <div id="tabs">
+                    <ul>
+                        <li><a href="#tab_add">Add User</a></li>
+                        <li><a href="#tab_update">Update User</a></li>
+                        <li><a href="#tab_delete">Delete User</a></li>
+                    </ul>
+                    <div id="tab_add">
+                        <div class="container offset-lg-2">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <h4 class="text-center">
+                                        <span class="badge">Add User</span>
+                                    </h4>
+                                    <hr />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <label>User Name</label>
+                                    <input class="form-control form-control-sm" [(ngModel)]='inputs.addUser' />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <label>Login Name</label>
+                                    <input class="form-control form-control-sm" [(ngModel)]='inputs.addLoginName' />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <label>Password</label>
+                                    <input class="form-control form-control-sm disk" [(ngModel)]='inputs.addPass' />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <label>Confirm Password</label>
+                                    <input class="form-control form-control-sm disk" [(ngModel)]='inputs.addCPass' />
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-lg-8 text-center">
+                                    <button class="btn btn-success btn-sm" (click)='AddUser()'
+                                        [disabled]='isSaving'>{{isSaving ? 'Saving...' : 'Save' }}</button>
+                                    <button class="btn btn-warning btn-sm" (click)='ClearPage()'>Clear</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab_update">
+                        <div class="container offset-lg-2">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <h4 class="text-center">
+                                        <span class="badge">Update User</span>
+                                    </h4>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <label class="badge">
+                                        User Name</label>
+                                    <select class="form-control form-control-sm" [(ngModel)]='inputs.updateUser'
+                                        (change)='getUserDetails()'>
+                                        <option value="">Select</option>
+                                        <option *ngFor='let user of users' [value]='user.id'>{{user.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <label class="badge">
+                                        User Name</label>
+                                    <input class="form-control form-control-sm" [(ngModel)]='inputs.updateNewUser' />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <label class="badge">
+                                        Login Name</label>
+                                    <input class="form-control form-control-sm" [(ngModel)]='inputs.updateLogin' />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <label class="badge">
+                                        New Password</label>
+                                    <input class="form-control form-control-sm" [ngClass]='{disk:!showPassword}'
+                                        [(ngModel)]='inputs.updatePass' />
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-lg-8">
+                                    <mat-checkbox (change)="showPassword=$event.checked">Show Password</mat-checkbox>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-lg-8 text-center">
+                                    <button class="btn btn-success btn-sm" (click)="updateUser()"
+                                        [disabled]='isUpdating'>
+                                        {{isUpdating ? 'Updating...' : 'Update User'}}</button>
+                                </div>
+                            </div>
+                            <div class="row text-center">
+                                <div class="col-md-8">
+                                    <label class="text-info">
+                                        Leave the password blank if you dont wan't to Change the Pasword
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab_delete">
+                        <div class="container offset-lg-2">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <h4 class="text-center">
+                                        <span class="badge">Delete User</span>
+                                    </h4>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <label class="badge">
+                                        User Name</label>
+                                    <select class="form-control form-control-sm" [(ngModel)]='inputs.deleteUser'>
+                                        <option value="">Select</option>
+                                        <option *ngFor='let user of users' [value]='user.id'>{{user.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-lg-8 text-center">
+                                    <button type="button" class="btn btn-success btn-sm" (click)='RemoveUser()'
+                                        [disabled]='isDeleting'>{{isDeleting ? 'Deleting...' : 'Delete User' }}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

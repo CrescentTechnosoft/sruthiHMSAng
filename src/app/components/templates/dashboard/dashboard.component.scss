@@ -1,0 +1,119 @@
+@media only screen and (min-width: 600px) {
+    .chart {
+        width: 100%;
+        height: 450px;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .chart {
+        width: 100%;
+        height: 350px;
+    }
+}
+.single-report {
+background: #fff;
+overflow: hidden;
+position: relative;
+}
+
+.s-report-inner {
+padding-left: 85px;
+}
+
+.single-report .icon {
+font-size: 32px;
+color: #fff;
+background-color :#f5bb9d;
+height: 95px;
+width: 100px;
+text-align: right;
+padding-top: 40px;
+padding-right: 22px;
+border-radius: 50%;
+position: absolute;
+left: -39px;
+top: -30px;
+}
+
+.s-report-title {
+margin-bottom: 25px;
+}
+.single-report p {
+font-size: 12px;
+font-weight: 700;
+color: #565656;
+background: #ececec;
+letter-spacing: 0;
+padding: 0 9px;
+height: 20px;
+line-height: 20px;
+}
+
+.single-report h2 {
+font-size: 26px;
+color: #4687d7;
+font-weight: 500;
+letter-spacing: 0;
+}
+
+.single-report span {
+font-size: 15px;
+font-weight: 600;
+color: #565656;
+letter-spacing: 0;
+padding-right: 10px;
+}
+
+.br {
+    border-radius: 20px;
+}
+
+li {
+    list-style: none;
+}
+
+.badge {
+    font-size: 85%;
+}
+
+.table td {
+    padding: 0px;
+}
+
+.myaccordion {
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.myaccordion .card,
+.myaccordion .card:last-child .card-header {
+    border: none;
+}
+
+.myaccordion .card-header {
+    border-bottom-color: #EDEFF0;
+    background: transparent;
+}
+
+.myaccordion .fa-stack {
+    font-size: 16px;
+}
+
+.myaccordion .accBtn {
+    width: 100%;
+    font-weight: bold;
+    color: #004987;
+    padding: 0;
+}
+
+.myaccordion .btn-link:hover,
+.myaccordion .btn-link:focus {
+    text-decoration: none;
+}
+
+.pdl {
+    padding-left: 15px;
+}
+
+.card-body {
+    padding: 0px 1.25rem;
+}

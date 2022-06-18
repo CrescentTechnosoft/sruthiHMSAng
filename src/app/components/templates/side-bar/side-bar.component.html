@@ -1,0 +1,136 @@
+<div class="left_col scroll-view">
+  <div class="navbar nav_title" style="border: 0;">
+    <a href="https://crescenttechnosofts.com" target="_blank" class="site_title">
+      <i class="fa fa-hospital"></i>&nbsp;<span>Crescent Technosoft</span>
+    </a>
+  </div>
+
+  <div class="clearfix"></div>
+  <!-- menu profile quick info -->
+  <div class="profile clearfix">
+    <div class="profile_pic">
+      <img src="assets/Images/Assets/user.jpg" alt="..." class="img-circle profile_img">
+    </div>
+    <div class="profile_info">
+      <span>Welcome,</span>
+      <h2>{{loginUserName}}</h2>
+    </div>
+  </div>
+</div>
+<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+  <div class="menu_section">
+    <!-- <h3>General</h3> -->
+    <ul class="nav side-menu">
+      <li id="liDashboard">
+        <a routerLink='/dashboard'><i class="fa fa-tachometer-alt"></i>&nbsp;Dashboard</a>
+      </li>
+      <li id="liMasters"><a><i class="fas fa-cogs"></i> Masters <span class="fas fa-chevron-down"></span></a>
+        <ul class="nav child_menu">
+          <li id="liDoctorMaster" *ngIf='this.allowed.doctorMaster'>
+            <a routerLink='/masters/doctor-master'>Doctor Master</a>
+          </li>
+          <li id="liDocTiming" *ngIf='allowed.doctorTiming'>
+            <a routerLink='/masters/doctor-timing'>Doctor Timing</a>
+          </li>
+          <li id="liFeesMaster" *ngIf='allowed.feesMaster'>
+            <a routerLink='/masters/fees-master'>Fees Master</a>
+          </li>
+          <li id="liTestMaster" *ngIf='allowed.testMaster'>
+            <a routerLink='/masters/test-master'>Test Master</a>
+          </li>
+          <li id="liGpTestMaster" *ngIf='allowed.groupTestMaster'>
+            <a routerLink='/masters/group-test-master'>Group Test Master</a>
+          </li>
+          <li id="liProfileMaster" *ngIf='allowed.profileMaster'>
+            <a routerLink='/masters/profile-master'>Profile Master</a>
+          </li>
+          <li id="liRoomMaster" *ngIf='allowed.roomMaster'>
+            <a routerLink='/masters/room-master'>Room Master</a>
+          </li>
+          <li id="liUserMaster" *ngIf='allowed.userMaster'>
+            <a routerLink='/masters/user-master'>User Master</a>
+          </li>
+          <li id="liUserAccess" *ngIf='allowed.userAccess'>
+            <a routerLink='/masters/user-access'>User Access</a>
+          </li>
+        </ul>
+      </li>
+      <li id="liReception"><a><i class="fas fa-desktop"></i> Reception<span class="fas fa-chevron-down"></span></a>
+        <ul class="nav child_menu">
+          <li id="liRegistration" *ngIf='allowed.registration'>
+            <a routerLink='/reception/registration'>Registration</a>
+          </li>
+          <li id="liPtList" *ngIf='allowed.patientsList'>
+            <a routerLink='/reception/patients-list'>View Patients</a>
+          </li>
+          <li id="liAppointments" *ngIf='allowed.appointments'>
+            <a routerLink='/reception/appointments'>Appointments</a>
+          </li>
+        </ul>
+      </li>
+      <li id="liOutPatients"><a><i class="fas fa-user-injured"></i> Out Patients<span
+            class="fas fa-chevron-down"></span></a>
+        <ul class="nav child_menu">
+          <li id="liOPRegistration" *ngIf='allowed.opRegistration'><a routerLink='/out-patients/op-registration'>OP
+              Registration</a></li>
+          <li id="liPrescription" *ngIf='allowed.prescription'><a
+              routerLink='/out-patients/prescription'>Prescription</a></li>
+        </ul>
+      </li>
+      <li id="liCashCounter"><a><i class="fas fa-cash-register"></i> Cash Counter<span
+            class="fas fa-chevron-down"></span></a>
+        <ul class="nav child_menu">
+          <li id="liOPBill" *ngIf='allowed.opBilling'><a routerLink='/cash-counter/op-billing'>OP
+              Billing</a></li>
+          <!-- <li id="liOPFeedback" *ngIf='access.includes("OP Feedback")'><a routerLink='/cash-counter/op-feedback'>OP
+              Feedback</a></li> -->
+          <li id="liIPAdvance" *ngIf='allowed.ipAdvance'><a routerLink='/cash-counter/ip-advance'>IP
+              Advance</a></li>
+          <li id="liIPBill" *ngIf='allowed.ipBilling'><a routerLink='/cash-counter/ip-billing'>IP
+              Billing</a></li>
+        </ul>
+      </li>
+      <li id="liLab"><a><i class="fas fa-vial"></i> Lab<span class="fas fa-chevron-down"></span></a>
+        <ul class="nav child_menu">
+          <li id="liOPLab" *ngIf='allowed.opLab'><a routerLink='/lab/op-lab'>OP Lab</a></li>
+          <li id="liIPLab" *ngIf='allowed.ipLab'><a routerLink='/lab/ip-lab'>IP Lab</a></li>
+        </ul>
+      </li>
+      <li id="liIPProcess"><a><i class="fas fa-procedures"></i> IP Process<span class="fas fa-chevron-down"></span></a>
+        <ul class="nav child_menu">
+          <li id="liAdmission" *ngIf='allowed.ipAdmission'><a routerLink='/ip-process/admission'>Admission</a>
+          </li>
+          <li id="liTreatment" *ngIf='allowed.ipTreatment'><a routerLink='/ip-process/treatment-entry'>Treatment</a>
+          </li>
+          <li id="liHistory" *ngIf='allowed.ipHistory'><a routerLink='/ip-process/history'>History</a>
+          </li>
+          <!-- <li id="liXRayUpload" *ngIf='access.includes("XRay Upload")'><a routerLink='/ip-process/xray-upload'>XRay
+              Upload</a></li> -->
+          <li id="liWardStatus" *ngIf='allowed.wardStatus'><a routerLink='/ip-process/ward-status'>Ward
+              Status</a></li>
+          <li id="liWardShifting" *ngIf='allowed.wardShifting'><a routerLink='/ip-process/ward-shifting'>Ward
+              Shifting</a></li>
+          <li id="liDischarge" *ngIf='allowed.ipDischarge'><a routerLink='/ip-process/discharge-summary'>Discharge
+              Summary</a></li>
+        </ul>
+      </li>
+      <li id="liReport"><a><i class="fas fa-chart-line"></i> Reports<span class="fas fa-chevron-down"></span></a>
+        <ul class="nav child_menu" *ngIf='allowed.reports'>
+          <li id="liCollectionsRep"><a [routerLink]=''>Collections<span class="fas fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+              <li class="sub_menu" id="liCollReport"><a routerLink='/reports/collections/overall'>Overall
+                  Collections</a></li>
+              <li class="sub_menu" id="liMonthlyColl"><a routerLink='/reports/collections/monthly'>Monthly
+                  Collections</a></li>
+              <!-- <li class="sub_menu" id="liDeptColl"><a routerLink='/reports/collections/deptwise'>Deptwise
+                  Collections</a></li> -->
+            </ul>
+          </li>
+          <li id="liRegReport"><a routerLink='/reports/registrations'>Registrations Report</a></li>
+          <li id="liIPReport"><a routerLink='/reports/ip-report'>IP Report</a></li>
+          <!-- <li id="liFeedBackRep"><a routerLink='/reports/feedback'>Feedback Report</a></li> -->
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>

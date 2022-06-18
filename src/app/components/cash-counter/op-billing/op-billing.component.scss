@@ -1,0 +1,44 @@
+.table {
+  vertical-align: top;
+
+  td {
+    padding-top: .1rem;
+    padding-bottom: .1rem;
+
+    input {
+      width: 100%;
+    }
+  }
+}
+
+.tabPanel {
+  max-height: 150px;
+}
+
+.green {
+  color: #1a6724;
+  text-shadow: 0 0 1px #b72828;
+  font-style: oblique;
+}
+
+.btn-sm {
+  padding: .25rem .5rem;
+}
+
+.badge {
+  text-align: left;
+}
+
+.mat-radio-label-content {
+  padding-right: 3px;
+}
+
+.mat-option {
+  height: 30px;
+  line-height: 30px;
+}
+
+.mat-option,
+.mat-option-text {
+  font-size: 13px;
+}

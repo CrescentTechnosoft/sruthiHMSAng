@@ -1,0 +1,372 @@
+<div class="container">
+    <div class="background-All pb-2 pl-2 pr-2">
+        <label style="font-size: 18px;font-weight: bold;" class="ml-lg-2">&nbsp;Patient Details</label>
+        <hr>
+        <div class="row">
+            <div class="col-lg-2 col-6">
+                <label class="badge">
+                    OP Year</label>
+                <select class="form-control form-control-sm" *ngIf='!isEditable' [(ngModel)]='inputs.year'
+                    (change)='getOPNos()'>
+                    <option value="">Select</option>
+                    <option *ngFor='let year of years'>{{year}}</option>
+                </select>
+                <select class="form-control form-control-sm" *ngIf='isEditable' [(ngModel)]='inputs.prYear'
+                    (change)='getPrescNos()'>
+                    <option value="">Select</option>
+                    <option *ngFor='let year of years'>{{year}}</option>
+                </select>
+            </div>
+            <div class="col-lg-2 col-6">
+                <label class="badge">
+                    OP No</label>
+                <select class="form-control form-control-sm" *ngIf='!isEditable' [(ngModel)]='inputs.id'
+                    (change)='getObservationDetails()'>
+                    <option value="">Select</option>
+                    <option *ngFor='let opNo of opNos' [value]='opNo.id'>{{opNo.opNo}}</option>
+                </select>
+                <select class="form-control form-control-sm" *ngIf='isEditable' [(ngModel)]='inputs.prId'
+                    (change)='getPrescriptions()'>
+                    <option value="">Select</option>
+                    <option *ngFor='let opNo of prescNos' [value]='opNo.id'>{{opNo.opNo}}</option>
+                </select>
+            </div>
+            <div class=" col-lg-2">
+                <label class="badge">
+                    Patient ID</label>
+                <input class="form-control form-control-sm" [value]='inputs.ptId' readonly />
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class=" col-lg-3">
+                <label class="badge">
+                    Patient Name</label>
+                <input class="form-control form-control-sm" [value]='inputs.name' readonly />
+            </div>
+            <div class=" col-lg-1">
+                <label class="badge">
+                    Age</label>
+                <input class="form-control form-control-sm" [value]='inputs.age' readonly />
+            </div>
+            <div class="custom-col-1">
+                <label class="badge">
+                    Gender</label>
+                <input class="form-control form-control-sm" [value]='inputs.gender' readonly />
+            </div>
+            <div class="col-lg-3">
+                <label class="badge">
+                    Consultant</label>
+                <input class="form-control form-control-sm" [value]='inputs.consultant' readonly />
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="background-All pb-2 pl-2 pr-2">
+        <label style="font-size: 18px;font-weight: bold;" class="ml-lg-2">&nbsp;Observation Details</label>
+        <div class="row">
+            <div class=" col-lg-2">
+                <label class="badge">
+                    Height</label>
+                <input class="form-control form-control-sm" [value]='inputs.height' readonly />
+            </div>
+            <div class=" col-lg-2">
+                <label class="badge">
+                    Weight</label>
+                <input class="form-control form-control-sm" [value]='inputs.weight' readonly />
+            </div>
+            <div class="col-lg-2">
+                <label class="badge">
+                    BSA</label>
+                <input class="form-control form-control-sm" [value]='inputs.bsa' readonly />
+            </div>
+            <div class="col-lg-2">
+                <label class="badge">
+                    BP</label>
+                <br />
+                <input class="form-control form-control-sm" [value]='inputs.bp' readonly />
+            </div>
+            <div class="col-lg-2">
+                <label class="badge">
+                    Pulse</label>
+                <br />
+                <input class="form-control form-control-sm" [value]='inputs.pulse' readonly />
+            </div>
+            <div class="col-lg-2">
+                <label class="badge">Status</label>
+                <textarea class="form-control" [value]='inputs.status' readonly></textarea>
+            </div>
+        </div>
+        <hr>
+        <div id="accordion" class="myaccordion">
+            <div class="card background-All">
+                <div class="card-header" id="headingDesription">
+                    <h2 class="mb-0">
+                        <button class="d-flex align-items-center justify-content-between btn btn-link btn1"
+                            data-toggle="collapse" data-target="#collapseDescription" aria-expanded="true"
+                            aria-controls="collapseDescription">
+                            Description
+                            <span class="fa-stack fa-2x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-minus fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseDescription" class="collapse show" aria-labelledby="headingDesription"
+                    data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label class="badge">Opinion</label>
+                                <textarea class="form-control" [(ngModel)]='inputs.opinion'></textarea>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="badge">Patient Info</label>
+                                <textarea class="form-control" [(ngModel)]='inputs.patientInfo'></textarea>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="badge">
+                                    Diagnosis</label>
+                                <input class="form-control form-control-sm" [(ngModel)]='inputs.diagnosis' />
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-3">
+                                <label class="badge">Complaint</label>
+                                <div class="input-group">
+                                    <input class="form-control form-control-sm" [(ngModel)]='inputs.complaint'
+                                        (keyup)='addComplaints($event,$event.target.value)' id="txtComplaints"
+                                        (blur)='this.inputs.complaint=$event.target.value'>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-sm btn-outline-primary mr-0" (click)='createComplaint()'>
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-sm btn-outline-danger" (click)='deleteComplaint()'>
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <mat-chip-list>
+                                    <mat-chip selected *ngFor='let complaint of complaints;let ind=index;'
+                                        [removable]='true' (removed)='removeComplaint(ind)'>
+                                        {{complaint}}
+                                        <mat-icon matChipRemove>cancel</mat-icon>
+                                    </mat-chip>
+                                </mat-chip-list>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card background-All">
+                <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                        <button class="d-flex align-items-center justify-content-between collapsed btn btn-link btn1"
+                            data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                            aria-controls="collapseOne">
+                            Advice Medicine
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-plus fa-stack-1x fa-inverse" id="firstFa"></i>
+                            </span>
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4 col-md-3">
+                                <label class="badge">Drugs</label>
+                                <input id="txtMedicine" class="form-control form-control-sm"
+                                    [(ngModel)]='inputs.medicine' (keyup)='focusElement($event,"fType")'
+                                    (blur)='inputs.medicine=$event.target.value' />
+                            </div>
+                            <div class="col-4 col-md-2">
+                                <label class="badge">Food Type</label>
+                                <select class="form-control form-control-sm fType" [(ngModel)]='inputs.fType'
+                                    onkeypress="return !event.keyCode===13" (keyup)='focusElement($event,"dosage")'>
+                                    <option>AF</option>
+                                    <option>BF</option>
+                                </select>
+                            </div>
+                            <div class="col-4 col-md-2">
+                                <label class="badge">Dosage</label>
+                                <select class="form-control form-control-sm dosage" [(ngModel)]='inputs.dosage'
+                                    onkeypress="return !event.keyCode===13" (keyup)='focusElement($event,"period")'>
+                                    <option *ngFor='let dosage of dosages'>{{dosage}}</option>
+                                </select>
+                            </div>
+                            <div class="col-4 col-md-2">
+                                <label class="badge">Period</label>
+                                <input class="form-control form-control-sm period" (keyup)='focusElement($event,"days")'
+                                    [(ngModel)]='inputs.period' />
+                            </div>
+                            <div class="col-4 col-md-2">
+                                <label class="badge">Days</label>
+                                <input type="number" class="form-control form-control-sm days" [(ngModel)]='inputs.days'
+                                    (keyup)='AddMedicine($event)' />
+                            </div>
+                            <div class=" col-lg-12">
+                                <br />
+                                <div class="table-responsive" style="max-height: 150px;">
+                                    <table id="tblMedicines" class="table table-hover table-bordered table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Drugs</th>
+                                                <th>Food Type</th>
+                                                <th>Dosage</th>
+                                                <th>Period</th>
+                                                <th>Days</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor='let medicine of medicines;let ind=index;'>
+                                                <td>{{medicine.medicine}}</td>
+                                                <td>{{medicine.type}}</td>
+                                                <td>{{medicine.dosage}}</td>
+                                                <td>{{medicine.period}}</td>
+                                                <td>{{medicine.days}}</td>
+                                                <td><button mat-mini-fab color='warn' (click)='RemoveMedicine(ind)'><i
+                                                            class="material-icons">delete</i></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card background-All">
+                <div class="card-header" id="headingTwo">
+                    <h2 class="mb-0">
+                        <button class="d-flex align-items-center justify-content-between btn btn-link collapsed btn1"
+                            data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+                            aria-controls="collapseTwo">
+                            Advice Investigation
+                            <span class="fa-stack fa-2x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input id="txtInvestigation" class="form-control form-control-sm"
+                                    (keyup)='addInvestigation($event)' placeholder="Investigation">
+                            </div>
+                            <div class="col">
+                                <mat-chip-list>
+                                    <mat-chip selected *ngFor='let investigation of investigations;let ind=index;'
+                                        [removable]='true' (removed)='removeInvestigation(ind)'>
+                                        {{investigation}}
+                                        <mat-icon matChipRemove>cancel</mat-icon>
+                                    </mat-chip>
+                                </mat-chip-list>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card background-All">
+                <div class="card-header" id="headingThree">
+                    <h2 class="mb-0">
+                        <button class="d-flex align-items-center justify-content-between btn btn-link collapsed btn1"
+                            data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
+                            aria-controls="collapseThree">
+                            Advice Treatment
+                            <span class="fa-stack fa-2x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-3 col-8">
+                                <div class="input-group">
+                                    <input id="txtTreatment" class="form-control form-control-sm"
+                                        [(ngModel)]='inputs.treatment' (keyup)='addTreatment($event)'
+                                        (blur)='inputs.treatment=$event.target.value' />
+                                    <div class="input-group-append">
+                                        <button class="input-group-text mr-0" (click)='createTreatment()'>
+                                            <span class="fa fa-plus" style="color: #00BFFF"></span>
+                                        </button>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <button class="input-group-text" (click)='deleteTreatment()'>
+                                            <span class="fa fa-minus" style="color: #00BFFF"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <mat-chip-list>
+                                    <mat-chip selected *ngFor='let treatment of treatments;let ind=index;'
+                                        [removable]='true' (removed)='removeTreatment(ind)'>
+                                        {{treatment}}
+                                        <mat-icon matChipRemove>cancel</mat-icon>
+                                    </mat-chip>
+                                </mat-chip-list>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col text-center">
+            <button class="btn btn-success btn-sm" (click)='savePrescription()'
+                [disabled]='isSaving || isEditable'>{{isSaving?'Saving...':'Save'}}</button>
+            <button class="btn btn-secondary btn-sm" (click)='view()' [disabled]='isSaving'>View</button>
+            <button class="btn btn-info btn-sm" [disabled]='!isEditable || isUpdating'
+                (click)='updatePrescription()'>{{isUpdating ?'Updating...':'Update'}}</button>
+            <button class="btn btn-danger btn-sm" [disabled]='!isEditable || isDeleting'
+                (click)='deletePrescription()'>{{isDeleting?'Deleting...':'Delete'}}</button>
+            <button class="btn btn-primary btn-sm" [disabled]='!isEditable' (click)='printPrescription()'>Print</button>
+            <button class="btn btn-warning btn-sm" (click)='clearPage()'>Clear</button>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="modalShowList">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <div class="modal-title text-center" style="width: 100%;">
+                    <h4 class="green font-weight-bold">Patients List</h4>
+                </div>
+                <button type="button" data-dismiss="modal" class="btn">
+                    <span class="fa fa-times"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive" style="max-height:200px;">
+                    <table id="tblPatientList" class="table table-bordered table-sm">
+                        <thead>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Phone No</th>
+                            <th>Select</th>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

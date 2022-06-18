@@ -1,0 +1,22 @@
+<div class="container mt-1">
+    <div class="background-All p-2">
+        <div class="row">
+            <div class="col-4 custom-col-05">
+                <label class="badge">Date</label>
+            </div>
+            <div class="col-8 col-lg-2">
+                <input type="date" class="form-control" [(ngModel)]='reportDate' [max]='currentDate' />
+            </div>
+            <div class="col-lg-3">
+                <button type="button" class="btn btn-success btn-sm ml-auto" (click)="GetReport()">Get Report</button>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="embed-responsive embed-responsive-16by9 col-12">
+                <object type='application/pdf' *ngIf='hasData' [data]='pdfData'>
+                    <p>Cannot View Report. You can Download report <a [href]='pdfData' download>Here</a></p>
+                </object>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,140 @@
+<div class="container">
+    <div class="background-All pb-2 pl-2 pr-2">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-10 col-12 offset-md-2 offset-sm-1 background-All pt-2 pb-2">
+                <div class="row">
+                    <div class="col-4 col-lg-2">
+                        <label class="badge">Department</label>
+                    </div>
+                    <div class=" col-lg-6 col-5">
+                        <input class="form-control form-control-sm" [(ngModel)]='inputs.txtDepartment'
+                            *ngIf='deptAddMode' (keyup)='AddDepartment($event)'>
+                        <select class="form-control form-control-sm" [(ngModel)]='inputs.department'
+                            *ngIf='!deptAddMode'>
+                            <option *ngFor='let department of departments'>{{department}}</option>
+                        </select>
+                    </div>
+                    <div class="col-3 col-lg-2 pl-0">
+                        <button class="btn btn-sm btn-outline-danger rounded-circle" (click)='RemoveDepartment()'
+                            *ngIf='!deptAddMode'>
+                            <span class="fa fa-minus"></span>
+                        </button>
+                        <button class="btn btn-sm btn-outline-success rounded-circle" (click)='deptAddMode=true'
+                            *ngIf='!deptAddMode'>
+                            <span class="fa fa-plus"></span>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger rounded-circle" *ngIf='deptAddMode'
+                            (click)='deptAddMode=false'>
+                            <span class="fa fa-times"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 col-lg-2">
+                        <label class="badge">Category</label>
+                    </div>
+                    <div class="col-8 col-lg-6">
+                        <input class="form-control form-control-sm" autocomplete="off" [(ngModel)]='inputs.category' />
+                    </div>
+                </div>
+                <div class="row pt-1">
+                    <div class="col-4 col-lg-2">
+                        <label class="badge">Fees Name&nbsp;<span class="fa fa-asterisk"
+                                style="font-size: 6px; color: Red;"></span></label>
+                    </div>
+                    <div class="col-8 col-lg-6">
+                        <input class="form-control form-control-sm" autocomplete="off" [(ngModel)]='inputs.feesName' />
+                    </div>
+                </div>
+                <div class="row pt-1">
+                    <div class="col-4 col-lg-2">
+                        <label class="badge">OP Fees</label>
+                    </div>
+                    <div class="col-8 col-lg-2">
+                        <input type="number" inputmode="numeric" class="form-control form-control-sm" autocomplete="off"
+                            [(ngModel)]='inputs.opFees' />
+                    </div>
+                    <div class="col-4 col-lg-2">
+                        <label class="badge">IP Fees</label>
+                    </div>
+                    <div class="col-8 col-lg-2 mt-lg-0 mt-1">
+                        <input type="number" inputmode="numeric" class="form-control form-control-sm" autocomplete="off"
+                            [(ngModel)]='inputs.ipFees' />
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col text-center">
+                        <button class="btn btn-success btn-sm" (click)='SaveFees()' *ngIf='!editMode'
+                            [disabled]='isSaving'>{{isSaving ? 'Saving...' : 'Save' }}</button>
+                        <button class="btn btn-success btn-sm" *ngIf='editMode' (click)='UpdateFees()'
+                            [disabled]='isUpdating'>{{isUpdating ? 'Updating...' : 'Update'}}</button>
+                        <button class="btn btn-danger btn-sm" (click)='ClearPage()'>Clear</button>
+                    </div>
+                    <div class="col-lg-3"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-12 bg-info text-light text-center">
+                <p>Fees Details</p>
+            </div>
+        </div>
+        <div class="row pt-3 background-All">
+            <div class="col-12 border border-dark border-bottom-0">
+                <div class="row">
+                    <div class="col-3 col-lg-1">
+                        <label class="badge mt-2">Department : </label>
+                    </div>
+                    <div class="col-8 col-lg-4">
+                        <select class="form-control form-control-sm mt-2" [(ngModel)]='inputs.filterDept'>
+                            <option>All</option>
+                            <option *ngFor='let department of departments'>{{department}}</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-sm btn-secondary mt-2" (click)='FilterDatas()'>Filter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row background-All">
+            <div class="col-12 border border-dark border-top-0">
+                <div class="table-responsive overflow-auto" style="max-height: 250px;">
+                    <table class="table table-sm table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Department</th>
+                                <th>Category</th>
+                                <th>Fees Type</th>
+                                <th>Fees</th>
+                                <th>IP Fees</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let fee of feesList;let rowIndex=index;"
+                                [hidden]='selectedFilter!=="All" && selectedFilter!==fee.department'>
+                                <td>{{fee.department}}</td>
+                                <td>{{fee.category}}</td>
+                                <td>{{fee.feesName}}</td>
+                                <td>{{fee.opFees | number : '1.2-2'}}</td>
+                                <td>{{fee.ipFees | number : '1.2-2'}}</td>
+                                <td>
+                                    <button mat-mini-fab color='primary' (click)='GetUpdateValues(rowIndex)'>
+                                        <i class="material-icons">edit</i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button mat-mini-fab color='warn' (click)='DeleteFees(fee.id,rowIndex)'>
+                                        <i class="material-icons">delete</i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,341 @@
+<div class="container">
+    <div class="background-All pb-1">
+        <label style="font-size: 18px;font-weight: bold;" class="ml-lg-2">&nbsp;Patient Details</label>
+        <br />
+        <div *ngIf='editMode'>
+            <div class="row">
+                <div class="col-lg-1 col-md-1 col-sm-2 col-4">
+                    <label class="badge">Admission Year</label>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-3 col-8">
+                    <select class="form-control form-control-sm" [(ngModel)]='inputs.year' (change)='getIPNos()'>
+                        <option value="">Select</option>
+                        <option *ngFor='let year of years'>{{year}}</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-2 col-md-2 col-sm-2 col-4">
+                    <label class="badge">IP Number</label>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-3 col-8 mt-lg-0 mt-1">
+                    <select class="form-control form-control-sm" [(ngModel)]='inputs.ipNo'
+                        (change)='getAdmissionDetails()'>
+                        <option value="">Select</option>
+                        <option *ngFor='let ipNo of ipNos' [value]='ipNo.id'>{{ipNo.ipNo}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row pl-2">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                <input type="search" placeholder="Search for Patients(ID,Name,Mobile)"
+                    class="form-control form-control-sm" (keyup)='searchPatients($event)' [(ngModel)]='inputs.search'
+                    *ngIf='!editMode' />
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-lg-1 col-md-1 col-sm-2 col-4">
+                <label class="badge">Patient ID&nbsp;<span class="fa fa-asterisk"
+                        style="font-size: 6px; color: Red;"></span></label>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-3 col-8">
+                <input class="form-control form-control-sm" [value]='inputs.txtID' *ngIf='editMode' disabled>
+                <select class="form-control form-control-sm" (change)="getPatientDetails()" [(ngModel)]='inputs.ddlID'
+                    *ngIf='!editMode'>
+                    <option value="">Select</option>
+                    <option *ngFor='let id of pidList'>{{id}}</option>
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-4">
+                <label class="badge">Patient Name</label>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-5 col-8 mt-lg-0 mt-1">
+                <input type="text" placeholder="Name" class="form-control form-control-sm" [(ngModel)]='inputs.name' />
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-2 col-4">
+                <label class="badge">Age</label>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-3 col-8 mt-sm-0 mt-1">
+                <input type="text" Placeholder="Age" class="form-control form-control-sm" [(ngModel)]='inputs.age' />
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-2 col-4">
+                <label class="badge">Gender</label>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-5 col-8 mt-1">
+                <select class="form-control form-control-sm" [(ngModel)]='inputs.gender'>
+                    <option value="">Select</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-4">
+                <label class="badge">Phone No</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-3 col-8 mt-1">
+                <input type="text" placeholder="(000)000-0000" class="form-control form-control-sm" maxlength="10"
+                    [(ngModel)]='inputs.contact' />
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-2 col-4">
+                <label class="badge">Address</label>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-5 col-8 mt-1">
+                <textarea id="txtAddress" placeholder="Address" class="form-control form-control-sm"
+                    [(ngModel)]='inputs.address'></textarea>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-4 col-12 mt-lg-0 mt-1">
+                <label class="badge">Admission Fees&nbsp;<span class="fa fa-asterisk"
+                        style="font-size: 6px; color: Red;"></span></label>
+                <input type="number" inputmode="numeric" class="form-control form-control-sm" min="0"
+                    [(ngModel)]='inputs.fees' />
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-4 col-12 mt-lg-0 mt-1">
+                <label class="badge">Admission Type</label>
+                <select class="form-control form-control-sm" [(ngModel)]='inputs.admType'>
+                    <option>RT</option>
+                    <option>CT</option>
+                    <option>HDR</option>
+                    <option>SURGERY</option>
+                    <option>SUPPORTIVE CARE</option>
+                    <option>EMERGENCY</option>
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-4 col-12 mt-lg-0 mt-1">
+                <label class="badge">Diagnosis</label>
+                <input class="form-control form-control-sm" [(ngModel)]='inputs.diagnosis'>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="accordion" class="myaccordion">
+    <div class="card background-All">
+        <div class="card-header" id="headingOne">
+            <h2 class="mb-0">
+                <button class="d-flex align-items-center justify-content-between btn btn-link" data-toggle="collapse"
+                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Doctors
+                    <span class="fa-stack fa-sm">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-minus fa-stack-1x fa-inverse" id="firstFa"></i>
+                    </span>
+                </button>
+            </h2>
+        </div>
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-12 mt-lg-0 mt-1">
+                        <label class="badge">Referred By&nbsp;<span class="fa fa-asterisk"
+                                style="font-size: 6px; color: Red;"></span></label>
+                        <select class="form-control form-control-sm" [(ngModel)]='inputs.ref'>
+                            <option value="">Select</option>
+                            <option *ngFor='let cons of consList' [value]='cons.id'>{{cons.name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-12 mt-lg-0 mt-1">
+                        <label class="badge">Department&nbsp;<span class="fa fa-asterisk"
+                                style="font-size: 6px; color: Red;"></span></label>
+                        <select class="form-control form-control-sm" [(ngModel)]='inputs.department'>
+                            <option value="">Select</option>
+                            <option *ngFor='let specs of specsList' [value]='specs'>{{specs}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-12 mt-lg-0 mt-1">
+                        <label class="badge">Consultant&nbsp;<span class="fa fa-asterisk"
+                                style="font-size: 6px; color: Red;"></span></label>
+                        <select class="form-control form-control-sm" [(ngModel)]='inputs.cons'>
+                            <option value="">Select</option>
+                            <option *ngFor='let cons of consList' [value]='cons.id'>{{cons.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card background-All">
+        <div class="card-header" id="headingTwo">
+            <h2 class="mb-0">
+                <button class="d-flex align-items-center justify-content-between btn btn-link collapsed"
+                    data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Room Allotment
+                    <span class="fa-stack fa-2x">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
+                    </span>
+                </button>
+            </h2>
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+            <div class="card-body">
+                <div class="table-responsive" style="max-height: 200px;">
+                    <table class="table table-bordered table-sm">
+                        <thead>
+                            <tr>
+                                <th>Floor Name</th>
+                                <th>Ward Name</th>
+                                <th>Room No</th>
+                                <th>Bed No</th>
+                                <th>Rent</th>
+                                <th>Select</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let room of rooms;let roomIndex=index;'
+                                [ngClass]='{"selected":room.id===inputs.room}'>
+                                <td [textContent]='room.floor'></td>
+                                <td [textContent]='room.ward'></td>
+                                <td [textContent]='room.room'></td>
+                                <td [textContent]='room.bed'></td>
+                                <td [textContent]='room.rent | currency:"INR"'></td>
+                                <td><button (click)='setSelectedRoom(room.id)' class="btn btn-sm btn-success"
+                                        style="color: aliceblue;">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                            </tr>
+                            <tr *ngIf="rooms.length===0" class="customDanger text-center">
+                                <td colspan="6">No Rooms Available for Admission</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card background-All">
+        <div class="card-header" id="headingThree">
+            <h2 class="mb-0">
+                <button class="d-flex align-items-center justify-content-between btn btn-link collapsed"
+                    data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
+                    aria-controls="collapseThree">
+                    Guardian / Relatives
+                    <span class="fa-stack fa-2x">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
+                    </span>
+                </button>
+            </h2>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-12">
+                        <label class="badge">Relative Name</label>
+                        <input type="text" class="form-control form-control-sm" Placeholder="Relative Name"
+                            [(ngModel)]='inputs.rName' />
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-12">
+                        <label class="badge">Phone No</label>
+                        <input type="text" class="form-control form-control-sm" Placeholder="Phone No"
+                            [(ngModel)]='inputs.rContact' />
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-12">
+                        <label class="badge">Relation with patient</label>
+                        <select class="form-control form-control-sm" [(ngModel)]='inputs.rType'>
+                            <option value="">Select</option>
+                            <option>Family Member</option>
+                            <option>Friend</option>
+                            <option>Relatives</option>
+                            <option>Business Relation</option>
+                            <option>Colleague</option>
+                            <option>Others</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-12">
+                        <label class="badge">Address</label>
+                        <textarea placeholder="Address" class="form-control form-control-sm"
+                            [(ngModel)]='inputs.rAddress'></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card background-All">
+            <div class="card-header" id="headingThree">
+                <h2 class="mb-0">
+                    <button class="d-flex align-items-center justify-content-between btn btn-link collapsed"
+                        data-toggle="collapse" data-target="#collapseFour" aria-expanded="false"
+                        aria-controls="collapseFour">
+                        Insurance Details
+                        <span class="fa-stack fa-2x">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6 col-12">
+                            <mat-form-field appearance='standard'>
+                                <mat-label>Category</mat-label>
+                                <input matInput autocomplete="off" [matAutocomplete]='insTypes'
+                                    [(ngModel)]='inputs.insCat'>
+                                <button matSuffix mat-icon-button color='primary' (click)='addInsCategory()'>
+                                    <mat-icon>add_circle</mat-icon>
+                                </button>
+                                <button matSuffix mat-icon-button color='warn' (click)='removeInsCategory()'>
+                                    <mat-icon>remove_circle</mat-icon>
+                                </button>
+                                <mat-autocomplete #insTypes='matAutocomplete'>
+                                    <mat-option *ngFor='let cat of insCats' [value]='cat'>{{cat}}</mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-12">
+                            <label class="badge">Ins.ID</label>
+                            <input class="form-control form-control-sm" [(ngModel)]='inputs.insID'>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-12">
+                            <label class="badge">Ins.Name</label>
+                            <input class="form-control form-control-sm" [(ngModel)]='inputs.insName'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2 text-center">
+        <div class=" col-lg-12">
+            <button class="btn btn-success btn-sm" (click)='saveAdmission()'
+                [disabled]='editMode || isSaving'>{{isSaving?'Saving...':'Save'}}</button>
+            <button class="btn btn-sm btn-info" (click)='view()'>View</button>
+            <button class="btn btn-sm btn-primary" [disabled]='!editMode || isUpdating'
+                (click)='updateAdmission()'>{{isUpdating?'Updating...':'Update'}}</button>
+            <button class="btn btn-sm btn-danger" [disabled]='!editMode || isDeleting'
+                (click)='deleteAdmission()'>{{isDeleting?'Deleting...':'Delete'}}</button>
+            <button class="btn btn-sm btn-warning" [disabled]='!editMode' (click)="printPage()">Print</button>
+            <button class="btn btn-sm btn-secondary" (click)='clearPage()'>Reset</button>
+        </div>
+    </div>
+    <ng-template #patientsDialog>
+        <div class="text-center" style="width: 100%;">
+            <h4 class="green font-weight-bold">Patients List</h4>
+        </div>
+        <div class="table-responsive" style="max-height:200px;">
+            <table class="table table-bordered table-sm">
+                <thead>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Phone No</th>
+                    <th>Select</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let patient of searchList'>
+                        <td>{{patient.id}}</td>
+                        <td>{{patient.name}}</td>
+                        <td>{{patient.contact}}</td>
+                        <td><button class="btn btn-success btn-sm" (click)='setPatientID(patient.id)'><span
+                                    class="fa fa-location-arrow"></span></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row text-center">
+            <div class="col">
+                <button class="btn btn-primary" mat-dialog-close>Close</button>
+            </div>
+        </div>
+    </ng-template>

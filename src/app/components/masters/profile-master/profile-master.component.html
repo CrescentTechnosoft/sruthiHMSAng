@@ -1,0 +1,68 @@
+<div class="container mt-2">
+    <div class="background-All p-2">
+        <div class="row">
+            <div class="col-md-4 col-sm-6" *ngIf='editMode'>
+                <select class="form-control form-control-sm" [(ngModel)]='inputs.search' (change)='getProfileDetails()'>
+                    <option value="">Select</option>
+                    <option *ngFor='let profile of profiles' [value]='profile.id'>{{profile.profile}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-4">
+                <label class="badge">Profile Name</label>
+                <div class="input-group">
+                    <input class="form-control form-control-sm" [(ngModel)]='inputs.profile' />
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-4">
+                <label class="badge">Profile Fees</label>
+                <input type="number" class="form-control form-control-sm" [(ngModel)]='inputs.fees'>
+            </div>
+            <div class="col-md-3 col-sm-4">
+                <label class="badge">Test Name</label>
+                <input id="txtTestName" class="form-control form-control-sm" [(ngModel)]='inputs.test'
+                    (keyup)='addTest($event,$event.target.value)'>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="table-responsive" style="min-height: 250px;max-height: 250px;">
+                    <table class="table table-bordered table-sm" id="tblTestName">
+                        <thead>
+                            <tr>
+                                <th>Test Names</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let test of addedTests;let ind=index'>
+                                <td>{{test.test}}</td>
+                                <td>
+                                    <button mat-mini-fab color='warn' (click)='removeTest(ind)'>
+                                        <i class="material-icons">delete</i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mt-2 text-center">
+                <button class="btn btn-success btn-sm" (click)='saveProfile()' *ngIf='!editMode;else edit'
+                    [disabled]='btnState.isSaving'>{{btnState.isSaving?'Saving...':'Save'}}</button>
+                <button class="btn btn-primary btn-sm" (click)='view()'>View</button>
+                <ng-template #edit>
+                    <button class="btn btn-success btn-sm" (click)='updateProfile()'
+                        [disabled]='btnState.isUpdating'>{{btnState.isUpdating?'Updating...':'Update'}}</button>
+                    <button class="btn btn-danger btn-sm" (click)='deleteProfile()'
+                        [disabled]='btnState.isDeleting'>{{btnState.isDeleting?'Deleting...':'Delete'}}</button>
+                </ng-template>
+                <button class="btn btn-secondary btn-sm" (click)='clearPage()'>Reset</button>
+            </div>
+        </div>
+    </div>
+</div>

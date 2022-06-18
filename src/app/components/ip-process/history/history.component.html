@@ -1,0 +1,138 @@
+<div class="container">
+    <div class="form-group">
+        <div class=" background-All pb-2 pl-2 pr-2">
+            <label style="font-size: 18px;font-weight: bold;" class="ml-lg-2">&nbsp;Patient Details</label>
+            <hr>
+            <div class="row">
+                <div class="col-md-3">
+                    <input type="search" class="form-control" placeholder="Search by Name / Contact No"
+                        (keyup)='searchPatient($event.target.value,$event)'>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-2 col-sm-3 col-6">
+                    <label class="badge">Bill Year</label>
+                    <select class="form-control form-control-sm" [(ngModel)]='inputs.year' (change)="getIPNos()">
+                        <option value="">Select</option>
+                        <option *ngFor='let year of years'>{{year}}</option>
+                    </select>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-3 col-6">
+                    <label class="badge">IP No</label>
+                    <select class="form-control form-control-sm" [(ngModel)]='inputs.ipNo' (change)="getIPHistory()">
+                        <option value="">Select</option>
+                        <option *ngFor='let ipNo of ipNos' [value]='ipNo.id' [text]='ipNo.ipNo'></option>
+                    </select>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-3 col-6">
+                    <label class="badge">Patient ID</label>
+                    <input class="form-control form-control-sm" readonly [value]='inputs.id' />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-6 col-8">
+                    <label class="badge">Patient Name</label>
+                    <input class="form-control form-control-sm" readonly [value]='inputs.name' />
+                </div>
+
+                <div class="col-lg-2 col-md-2 col-sm-4 col-4">
+                    <label class="badge">Age</label>
+                    <input class="form-control form-control-sm" readonly [value]='inputs.age' />
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-6 col-4">
+                    <label class="badge">Gender</label>
+                    <input class="form-control form-control-sm" readonly [value]='inputs.gender' />
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-8">
+                    <label class="badge">Consultant</label>
+                    <input class="form-control form-control-sm" readonly [value]='inputs.consultant'>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-6 col-4">
+                    <label class="badge">Status</label>
+                    <input class="form-control form-control-sm" readonly [value]='inputs.status' />
+                </div>
+                <div class="col-lg-4 col-md-8 col-sm-6 col-8">
+                    <label class="badge">Ward</label>
+                    <input class="form-control form-control-sm" readonly [value]='inputs.ward' />
+                </div> 
+            </div>-->
+        </div>
+        <br />
+        <div class=" background-All pl-2 pr-2">
+            <label style="font-size: 18px;font-weight: bold;" class="ml-lg-2">&nbsp;Treatment History</label>
+            <div class="table-responsive" style="max-height: 300px;">
+                <table id="tblTreatment" class="table table-bordered table-hover table-sm table-striped table-dark">
+                    <thead>
+                        <tr class="text-light">
+                            <th>Service Time</th>
+                            <th>Ref No</th>
+                            <th>Category</th>
+                            <th>Service</th>
+                            <th>Cost</th>
+                            <th>Qty</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let treatment of treatments'>
+                            <td>{{treatment.date | date :'MMM d, y, h:mm a'}}</td>
+                            <td>{{treatment.refNo}}</td>
+                            <td>{{treatment.category}}</td>
+                            <td>{{treatment.service}}</td>
+                            <td>{{treatment.cost | number:'1.2-2'}}</td>
+                            <td>{{treatment.qty}}</td>
+                            <td>{{treatment.total| number:'1.2-2'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="ml-auto mr-3 mt-2">
+                    <label id="lblTotal" class="alert alert-success">Total Amount is
+                        {{inputs.total | currency:'INR'}}</label>
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+</div>
+
+<ng-template #patientsTemplate>
+    <div class="row">
+        <div class="col">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>IP No</th>
+                            <th>Patient Name</th>
+                            <th>Contact No</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let patient of patients'>
+                            <td>{{patient.year}}</td>
+                            <td>{{patient.ipNo}}</td>
+                            <td>{{patient.name}}</td>
+                            <td>{{patient.contact}}</td>
+                            <td>
+                                <button class="btn btn-primary btn-sm" (click)='setIPNo(patient)'>
+                                    <i class="fa fa-location-arrow"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3 text-center">
+        <div class="col">
+            <button class="btn btn-primary" mat-dialog-close>Close</button>
+        </div>
+    </div>
+</ng-template>

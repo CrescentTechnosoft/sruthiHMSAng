@@ -1,0 +1,194 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/@ng-select/ng-select/themes/default.theme.css";
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  color: #637587;
+}
+
+@media (min-width: 720px) {
+  .custom-col {
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+
+    &-05 {
+      -ms-flex: 0 0 4.666667%;
+      flex: 0 0 4.666667%;
+      max-width: 4.666667%;
+    }
+
+    &-1 {
+      -ms-flex: 0 0 12.666667%;
+      flex: 0 0 12.666667%;
+      max-width: 12.666667%;
+
+    }
+
+    &-15 {
+      -ms-flex: 0 0 20.666667%;
+      flex: 0 0 20.666667%;
+      max-width: 20.666667%;
+    }
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.occupied {
+  background-color: #ce7171;
+  color: aliceblue;
+}
+
+.ui-autocomplete.ui-widget {
+  font-size: small;
+  max-height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.ui-tabs a {
+  font-size: small;
+}
+
+textarea {
+  resize: none;
+}
+
+h2.header {
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.form-control,
+.table,
+.btn {
+  font-size: .75rem;
+}
+
+.badge {
+  font-size: 0.8rem;
+}
+label {
+  font-weight: bold;
+}
+
+body {
+  color: #146b9c;
+}
+
+.table {
+  th {
+    padding-top: .8rem;
+    padding-bottom: .8rem;
+    position: -webkit-sticky;
+    /* this is for all Safari (Desktop & iOS), not for Chrome*/
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: #34568b;
+    color: #ffffff;
+  }
+
+  th {
+    &:first-child {
+      border-radius: 10px 0 0 0;
+    }
+
+    &:last-child {
+      border-radius: 0 10px 0 0;
+    }
+  }
+
+  tbody td {
+    font-size: .83rem;
+    font-weight: 400;
+  }
+}
+
+.mat-success {
+  background-color: #26b99a;
+  color: white;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.mat-form-field-appearance-outline {
+  .mat-form-field-wrapper {
+    padding-bottom: 1px;
+  }
+
+  .mat-form-field-outline {
+    color: #4c229c42;
+  }
+
+  .disk {
+    font-family: 'text-security-disc' !important;
+  }
+}
+
+textarea:focus {
+  outline: none;
+}
+
+.left_col,
+.nav_title,
+.nav.side-menu>li.active>a {
+  background: #294571;
+}
+
+.nav.side-menu>li>a,
+.nav.child_menu>li>a {
+  /* font-weight: 500; */
+  font-size: 15px;
+}
+
+.dropdown-menu {
+  font-size: 14px;
+}
+
+.profile_info {
+
+  h2,
+  span {
+    font-weight: 600;
+  }
+}
+
+.dropdown-item:hover,
+a.dropdown-item:hover {
+  background-color: #34568b;
+  color: white !important;
+  border-radius: 30px;
+  margin: 1px 0px;
+}
+
+.form-control,
+.table,
+.btn {
+  font-size: .9rem;
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked {
+  background-color: #34568b;
+  color: #fff;
+}
+
+.sub_menu {
+  background-color: #294571;
+}
+
+.mat-autocomplete-panel {
+  .mat-active span {
+    color: #fff;
+  }
+
+  .mat-option.mat-active {
+    background: #34568b;
+  }
+}

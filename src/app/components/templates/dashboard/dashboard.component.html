@@ -1,0 +1,56 @@
+<div class="container-fluid">
+    <div class="row" style="display: block;">
+        <div class="tile_count">
+            <div class="col-md-2 col-sm-4 tile_stats_count">
+                <span class="count_top"><i class="fa fa-user-plus"></i> Registrations</span>
+                <div [ngClass]="counts.Regs>0?'count green':'count red'">{{ counts.Regs }}</div>
+                <span class="count_bottom"><a routerLink='/reception/registration' class="blue">Registration <i
+                            class="fa fa-arrow-circle-right"></i></a></span>
+            </div>
+            <div class="col-md-2 col-sm-4 tile_stats_count">
+                <span class="count_top"><i class="fa fa-rupee-sign"></i> OP Bills</span>
+                <div [ngClass]="counts.OPBills>0?'count green':'count red'">{{ counts.OPBills }}</div>
+                <span class="count_bottom"><a routerLink='/cash-counter/op-billing' class="blue">OP Billing <i
+                            class="fa fa-arrow-circle-right"></i></a></span>
+            </div>
+            <div class="col-md-2 col-sm-4 tile_stats_count">
+                <span class="count_top"><i class="fa fa-rupee-sign"></i> IP Bills</span>
+                <div [ngClass]="counts.IPBills>0?'count green':'count red'">{{counts.IPBills}}</div>
+                <span class="count_bottom"><a routerLink='/cash-counter/ip-billing' class="blue">IP Billing <i
+                            class="fa fa-arrow-circle-right"></i></a></span>
+            </div>
+            <div class="col-md-2 col-sm-4 tile_stats_count">
+                <span class="count_top"><i class="fa fa-user"></i> IP Admissions</span>
+                <div [ngClass]="counts.IPAd>0?'count green':'count red'">{{counts.IPAd}}</div>
+                <span class="count_bottom"><a routerLink='/ip-process/admission' class="blue">IP Admission
+                        <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </span>
+            </div>
+            <div class="col-md-2 col-sm-4 tile_stats_count">
+                <span class="count_top"><i class="fa fa-user"></i> IP Discharge</span>
+                <div [ngClass]="counts.IPD>0?'count green':'count red'">{{counts.IPD}}</div>
+                <span class="count_bottom">
+                    <a routerLink='/ip-process/discharge-summary' class="blue">IP Discharge
+                        <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </span>
+            </div>
+            <div class="col-md-2 col-sm-4 tile_stats_count">
+                <span class="count_top"><i class="fa fa-user"></i> Ward Status</span>
+                <div [ngClass]="counts.IPWard>0?'count green':'count red'">{{counts.IPWard}}</div>
+                <span class="count_bottom"><a routerLink='/ip-process/ward-status' class="blue">Ward Status <i
+                            class="fa fa-arrow-circle-right"></i></a></span>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="display: block;">
+        <div class="col-lg-8 col-12">
+            <h2 class="header">Over All</h2>
+            <br />
+            <ngx-charts-bar-horizontal *ngIf="showChart" [results]="workData" legendTitle="Today's work Chart"
+                [legend]="true" [showXAxisLabel]="true" [yAxis]="true" [gradient]="true" [noBarWhenZero]="true">
+            </ngx-charts-bar-horizontal>
+        </div>
+    </div>
+</div>

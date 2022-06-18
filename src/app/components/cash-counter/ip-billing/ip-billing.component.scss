@@ -1,0 +1,26 @@
+.table {
+  vertical-align: top;
+
+  .badge {
+    text-align: left;
+  }
+
+  input {
+    max-width: 100px;
+  }
+}
+
+.tabPanel {
+  min-height: 200px;
+  max-height: 200px;
+}
+
+.green {
+  color: #1a6724;
+  text-shadow: 0 0 1px #b72828;
+  font-style: oblique;
+}
+
+.btn-sm {
+  padding: .25rem .5rem;
+}

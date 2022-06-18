@@ -1,0 +1,142 @@
+<div class="container">
+  <div class="background-All p-2">
+    <div class="form-group">
+      <div class="row">
+        <div class="col-lg-1 col-md-1 col-sm-2 col-4">
+          <label class="badge">
+            Doctor Name&nbsp;<span class="fa fa-asterisk text-danger" style="font-size:7px;"></span></label>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-3 col-8 mt-lg-0 mt-1">
+          <input class="form-control form-control-sm" autocomplete="off" [(ngModel)]='inputs.name' />
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-4">
+          <label class="badge">Age</label>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-2 col-8 mt-lg-0 mt-1">
+          <input class="form-control form-control-sm" autocomplete="off" [(ngModel)]='inputs.age' />
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-4">
+          <label class="badge">
+            Gender</label>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-8 mt-lg-0 mt-1">
+          <select class="form-control form-control-sm" [(ngModel)]='inputs.gender'>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-2 col-4">
+          <label class="badge">
+            Specialization&nbsp;<span class="fa fa-asterisk text-danger" style="font-size:7px;"></span></label>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-8">
+          <div class="input-group mt-lg-0 mt-1">
+            <input class="form-control form-control-sm" autocomplete="off" [(ngModel)]='inputs.specs'
+              id="txtSpecialization" (blur)='inputs.specs=$event.target.value' />
+            <div class="input-group-append">
+              <button class="input-group-text mr-0 pr" (click)="AddSpecialization()" style="padding: .275rem .55rem;">
+                <span class="fa fa-plus" style="color: #00BFFF;"></span>
+              </button>
+            </div>
+            <div class="input-group-append">
+              <button class="input-group-text" style="padding: .275rem .55rem;" (click)="RemoveSpecialization()">
+                <span class="fa fa-minus" style="color: #00BFFF;"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-1 col-md-1 col-4 col-sm-1">
+          <label class="badge">
+            Contact No</label>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-8 mt-lg-0 mt-1">
+          <input type="tel" class="form-control form-control-sm" autocomplete="off" placeholder="(000)000-0000"
+            onkeypress="return isNumber(event)" maxlength="10" [(ngModel)]='inputs.contact' />
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-4">
+          <label class="badge">
+            Email ID</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-3 col-8 mt-lg-0 mt-1">
+          <input class="form-control form-control-sm" autocomplete="off" placeholder="E-Mail Address"
+            [(ngModel)]='inputs.email' />
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-2 col-4">
+          <label class="badge">
+            Qualification</label>
+        </div>
+        <div class="col-sm-3 col-8 mt-lg-0 mt-1">
+          <input class="form-control form-control-sm" autocomplete="off" [(ngModel)]='inputs.qualification' />
+        </div>
+        <div class="col-lg-1 col-md-1 col-4 col-sm-1">
+          <label class="badge">
+            Status</label>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-8 mt-1">
+          <select class='form-control form-control-sm' [(ngModel)]='inputs.status'>
+            <option>Active</option>
+            <option>InActive</option>
+          </select>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-4">
+          <label class="badge">
+            Address</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-3 col-8  mt-1">
+          <textarea class="form-control form-control-sm" rows="2" [(ngModel)]='inputs.address'></textarea>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class=" col-lg-12 text-center">
+          <button class="btn btn-success btn-sm" (click)='SaveData()' [disabled]='isSaving'
+            *ngIf='!editMode'>{{isSaving?'Saving...':'Save'}}</button>
+          <button class="btn btn-success btn-sm" (click)='UpdateData()' [disabled]='isUpdating'
+            *ngIf='editMode'>{{isUpdating?'Updating...':'Update'}}</button>
+          <button class="btn btn-secondary btn-sm" (click)='ClearPage()'>Clear</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="background-All pb-2 pl-2 pr-2">
+    <div class="row">
+      <div class="col">
+        <div class="table-responsive" style="max-height:300px;">
+          <table class="table table-hover table-sm" style="font-size:small;" id="tblDoctors">
+            <thead>
+              <tr>
+                <th>Doctor Name</th>
+                <th>Age / Gender</th>
+                <th>Specialization</th>
+                <th>Status</th>
+                <th>Contact No</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor='let doc of consList;let rowIndex=index;'>
+                <td>{{doc.name+' '+doc.qualification}}</td>
+                <td>{{doc.age+' / '+doc.gender}}</td>
+                <td>{{doc.specs}}</td>
+                <td>{{doc.status}}</td>
+                <td>{{doc.contact}}</td>
+                <td>
+                  <button mat-mini-fab color='primary' (click)="GetUpdateValues(rowIndex)">
+                    <i class="material-icons">edit</i>
+                  </button>
+                </td>
+                <td>
+                  <button mat-mini-fab color='warn' (click)='DeleteData(doc.id,rowIndex)'>
+                    <i class="material-icons">delete</i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

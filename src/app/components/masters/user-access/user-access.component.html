@@ -1,0 +1,58 @@
+<div class="container offset-lg-3">
+    <div class="col-lg-6">
+        <div class="background-All pl-2 pr-2 pb-2">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h4 class="text-center">
+                        <span class="badge">User Access</span></h4>
+                    <hr />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <label class="badge">
+                        User Name</label>
+                    <select class="form-control form-control-sm" [(ngModel)]='userName' (change)='GetUserAccess()'>
+                        <option *ngFor='let user of users' [value]='user.id'>{{user.name}}</option>
+                    </select>
+                </div>
+                <div class="col-lg-6">
+                    <label class='badge'>
+                        Select All
+                    </label><br>
+                    <label class="switch"><input type="checkbox" (change)='ToggleAccess($event.target.checked)'><span
+                            class="slider round"></span></label>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <div class="table-responsive">
+                        <table class="table table-sm" id="tblUserAccess">
+                            <thead>
+                                <tr>
+                                    <th>Pages</th>
+                                    <th>Access&nbsp;&nbsp;&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor='let acc of Access'>
+                                    <td>{{acc.access}}</td>
+                                    <td><label class="switch"><input type="checkbox" [(ngModel)]='acc.allowed'><span
+                                                class="slider round"></span></label></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col">
+                    <button class="btn btn-sm btn-success" (click)="Save()"
+                        [disabled]='isSaving'>{{isSaving ? 'Saving...':'Save'}}</button>
+                    <button class="btn btn-sm btn-danger" (click)="ClearPage()">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
