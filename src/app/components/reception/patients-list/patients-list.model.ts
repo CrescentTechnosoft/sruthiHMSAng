@@ -2,6 +2,7 @@ export interface Profile {
     id: number,
     name: string,
     age: string,
+    uhid:string,
     gender: string,
     dob: string,
     contact: string,
@@ -12,6 +13,7 @@ export interface Profile {
 export interface Patient {
     id: number,
     uuid:number,
+    uhid:string,
     salutation: string,
     name: string,
     age: string,

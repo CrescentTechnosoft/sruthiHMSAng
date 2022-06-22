@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CustomEncoderService } from 'src/app/services/http/custom-encoder.service';
-import { Inputs, Responses } from './opregistration.model';
+import { Inputs, Registration, Responses } from './opregistration.model';
 
 @Injectable()
 export class OPRegService {
@@ -15,8 +15,8 @@ export class OPRegService {
     return this.http.get<Responses>(this.currentUrl);
   }
 
-  getIDs(): Observable<number[]> {
-    return this.http.get<number[]>(this.currentUrl + '/ids');
+  getIDs(): Observable<Registration[]> {
+    return this.http.get<Registration[]>(this.currentUrl + '/ids');
   }
 
   getPatientDetails(id: string): Observable<Inputs> {

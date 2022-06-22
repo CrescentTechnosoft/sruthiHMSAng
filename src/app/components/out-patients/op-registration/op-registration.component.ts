@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/services/common.service';
 import { OPRegService } from './shared/opreg.service';
-import { Inputs, Consultant } from './shared/opregistration.model';
+import { Inputs, Consultant ,Registration} from './shared/opregistration.model';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
   providers: [OPRegService]
 })
 export class OPRegistrationComponent implements OnInit {
-  ids: Array<number>;
+  ids: Array<Registration>;
   consultants: Array<Consultant>;
   inputs: Inputs;
   years: Array<string>;
@@ -33,6 +33,7 @@ export class OPRegistrationComponent implements OnInit {
       .toPromise()
       .then(d => {
         this.ids = d.ids;
+        console.log(d.ids);
         this.consultants = d.consultants;
       });
   }
@@ -95,8 +96,8 @@ export class OPRegistrationComponent implements OnInit {
       this.service.GetObservationDetails(this.inputs.year, this.inputs.opNo)
         .toPromise()
         .then(d => {
-          if (!this.ids.includes(Number(d.ptid)))
-            this.ids.push(Number(d.ptid));
+          // if (!this.ids.includes(d.ptid))
+          //   this.ids.push(d.ptid);
 
           for (let obj in d)
             this.inputs[obj] = d[obj];

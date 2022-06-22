@@ -44,6 +44,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.saving = false;
     this.patientId = 0;
     this.formGroup = new FormGroup({
+      uhid: new FormControl('', [
+        Validators.required,
+      ]),
       salutation: new FormControl('Mr'),
       name: new FormControl('', [
         Validators.required,

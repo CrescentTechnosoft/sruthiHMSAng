@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CustomEncoderService } from 'src/app/services/http/custom-encoder.service';
-import { Inputs, Response,ResponseData, TempData, Patient, FeesData, BillNo } from './opbilling.model';
+import { Inputs, Response,ResponseData, TempData, Patient, FeesData, BillNo, Registration } from './opbilling.model';
 
 @Injectable()
 
@@ -21,8 +21,8 @@ export class BillingService {
         return this.http.get<Response>(this.currentUrl + '/search-patients', { params: { search } });
     }
 
-    getIds(): Observable<number[]> {
-        return this.http.get<number[]>(this.currentUrl + '/ids');
+    getIds(): Observable<Registration[]> {
+        return this.http.get<Registration[]>(this.currentUrl + '/ids');
     }
 
     getPatientDetails(id: string): Observable<ResponseData> {

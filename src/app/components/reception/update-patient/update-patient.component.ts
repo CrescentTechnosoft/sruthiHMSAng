@@ -39,6 +39,7 @@ export class UpdatePatientComponent implements OnInit, OnDestroy {
       this.consultants.push(...data.cons);
       this.formGroup = new FormGroup({
         id: new FormControl({ value: data.details.id, disabled: true }),
+        uhid: new FormControl(data.details.uhid),
         salutation: new FormControl(data.details.salutation),
         name: new FormControl(data.details.name, [
           Validators.required,
@@ -105,6 +106,7 @@ export class UpdatePatientComponent implements OnInit, OnDestroy {
 
 interface Inputs {
   id: number,
+  uhid:string,
   salutation: string,
   name: string,
   age: string,

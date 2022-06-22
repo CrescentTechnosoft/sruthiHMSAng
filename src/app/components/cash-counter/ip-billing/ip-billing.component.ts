@@ -23,7 +23,7 @@ export class IPBillingComponent implements OnInit, OnDestroy {
   payTypes: Array<string>;
   cardTypes: Array<string>;
   paymentModes: Array<string>;
-
+  billType = 'hospital';
   @ViewChild('cardTemplate') cardTemplate: TemplateRef<ViewChild>;
 
   constructor(
@@ -176,7 +176,7 @@ export class IPBillingComponent implements OnInit, OnDestroy {
     else if (this.inputs.billNo === '')
       this.toastr.error('Select the Bill No');
     else
-      this.common.printPage(`ip-bill/${this.inputs.billNo}`);
+      this.common.printPage(`ip-bill/${this.inputs.billNo}/${this.billType}`);
   }
 
   ClearPage(): void {

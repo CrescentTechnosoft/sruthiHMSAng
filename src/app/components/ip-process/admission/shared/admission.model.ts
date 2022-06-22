@@ -1,5 +1,5 @@
 export interface Response {
-    id: number[],
+    id: Registration[],
     cons: Doctor[],
     specs: string[],
     insCat: string[],
@@ -26,6 +26,10 @@ export interface Patient {
 export interface Doctor {
     id: number,
     name: string
+}
+export interface Registration {
+    id: number,
+    uhid: string
 }
 
 export interface IPNo {

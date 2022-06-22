@@ -65,7 +65,7 @@ export interface FeesData {
 }
 
 export interface Response {
-    pid: number[],
+    pid: Registration[],
     cons: Consultant[],
     fees: Array<Fee>,
     lab: Array<Test>,
@@ -109,4 +109,8 @@ export interface Test {
 export interface BillNo {
     id: number,
     billNo: number
+}
+export interface Registration {
+    id: number,
+    uhid: string
 }

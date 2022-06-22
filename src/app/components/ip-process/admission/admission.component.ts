@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, TemplateRef } from '@angular/core';
 import { AdmissionService } from './shared/admission.service';
-import { Room, Input, Patient, Doctor, IPNo } from './shared/admission.model';
+import { Room, Input, Patient, Doctor, IPNo ,Registration} from './shared/admission.model';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/services/common.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,7 +16,7 @@ import { takeUntil } from 'rxjs/operators';
 
 export class AdmissionComponent implements OnInit, OnDestroy {
   editMode: boolean;
-  pidList: number[];
+  pidList: Registration[];
   searchList: Array<Patient>;
   years: string[];
   ipNos: IPNo[];
@@ -67,8 +67,8 @@ export class AdmissionComponent implements OnInit, OnDestroy {
           const id = localStorage.getItem('PID');
           if (id !== null) {
             localStorage.removeItem('PID');
-            if (!this.pidList.includes(parseInt(id)))
-              this.pidList.push(parseInt(id));
+            // if (!this.pidList.includes(parseInt(id)))
+            //   this.pidList.push(parseInt(id));
             this.inputs.ddlID = id;
             this.getPatientDetails();
           }
@@ -94,9 +94,9 @@ export class AdmissionComponent implements OnInit, OnDestroy {
 
 
   setPatientID(id: number) {
-    if (!this.pidList.includes(id)) {
-      this.pidList.push(id);
-    }
+    // if (!this.pidList.includes(id)) {
+    //   this.pidList.push(id);
+    // }
     this.inputs.ddlID = `${id}`;
     this.searchList = [];
     this.dialog.closeAll();

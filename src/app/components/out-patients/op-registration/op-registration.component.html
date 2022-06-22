@@ -29,10 +29,10 @@
         </div>
         <div class="row">
             <div class=" col-lg-2">
-                <label class="badge">Patient ID <i class="text-danger">*</i></label>
+                <label class="badge">Patient ID / UHID <i class="text-danger">*</i></label>
                 <select class="form-control form-control-sm" (change)='getPatientDetails()' [(ngModel)]='inputs.ptid'>
                     <option value="">Select</option>
-                    <option *ngFor='let id of ids'>{{id}}</option>
+                    <option *ngFor='let id of ids' [value]="id.id">{{id.uhid}}</option>
                 </select>
             </div>
             <div class=" col-lg-3">

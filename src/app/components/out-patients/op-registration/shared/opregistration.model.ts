@@ -1,5 +1,5 @@
 export interface Responses {
-    ids: Array<number>,
+    ids: Array<Registration>,
     consultants: Array<Consultant>,
     years: Array<string>,
     opNos: Array<number>,
@@ -29,4 +29,8 @@ export interface Inputs {
 export interface Consultant {
     id: number,
     name: string
+}
+export interface Registration {
+    id: number,
+    uhid: string
 }

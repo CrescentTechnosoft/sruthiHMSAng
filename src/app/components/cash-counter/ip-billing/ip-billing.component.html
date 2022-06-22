@@ -37,7 +37,7 @@
             </select>
         </div>
         <div class="col-lg-2 col-md-2 col-sm-3 col-6">
-            <label class="badge">Patient ID</label>
+            <label class="badge">Patient ID / UHID</label>
             <input class="form-control form-control-sm" [value]='inputs.ptId' readonly />
         </div>
     </div>
@@ -65,6 +65,19 @@
     <div class="row">
         <div class="col">
             <label style="font-size: 18px;font-weight: bold;">&nbsp;Bill Details</label>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-lg-2">
+            <label style="font-size: 18px;font-weight: bold;">&nbsp;Select Bill type </label>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-4 col-8 mt-lg-0 mt-1">
+            <select class="form-control form-control-sm" [(ngModel)]='billType'>
+                <!-- <option value="">Select</option> -->
+                <option value='hospital'>Hospital</option>
+                <option value='clinic'>Clinic</option>
+            </select>
         </div>
     </div>
     <hr style="margin-top:0px;">

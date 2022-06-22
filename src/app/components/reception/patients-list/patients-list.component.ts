@@ -139,6 +139,7 @@ export class PatientsListComponent implements OnInit, OnDestroy {
     };
     this.profile = {
       id: 0,
+      uhid:'',
       name: '',
       age: '',
       gender: '',
@@ -147,7 +148,7 @@ export class PatientsListComponent implements OnInit, OnDestroy {
       email: '',
       address: ''
     };
-    this.displayedColumns = ['id', 'name', 'age', 'gender', 'contact', 'actions'];
+    this.displayedColumns = ['id','uhid' ,'name', 'age', 'gender', 'contact', 'actions'];
     this.dataSource = new MatTableDataSource([]);
     this.paginatorCounts = [10, 20, 50, 100];
   }

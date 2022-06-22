@@ -8,7 +8,8 @@ import {
   Patient,
   Fee,
   Test,
-  BillNo
+  BillNo,
+  Registration
 } from './shared/opbilling.model';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -25,7 +26,7 @@ import { Observable, Subject } from 'rxjs';
 export class OPBillingComponent implements OnInit, OnDestroy {
   editMode: boolean;
   searchList: Array<Patient>;
-  pidList: Array<number>;
+  pidList: Array<Registration>;
   consList: Array<Consultant>;
   feesList: Array<Fee>;
   testList: Array<Test>;
@@ -108,9 +109,9 @@ export class OPBillingComponent implements OnInit, OnDestroy {
   }
 
   setPatientID(id: number) {
-    if (!this.pidList.includes(Number(id))) {
-      this.pidList.push(id);
-    }
+    // if (!this.pidList.includes(Number(id))) {
+    //   this.pidList.push(id);
+    // }
     this.formGroup.get('ptId').patchValue(id.toString());
     this.dialog.closeAll();
     this.searchList.length = 0;
@@ -270,7 +271,7 @@ export class OPBillingComponent implements OnInit, OnDestroy {
                 allowOutsideClick: false
               }).then((result) => {
                 if (result.isConfirmed) {
-                  this.common.printPage(`op-bill/${response.id}`);
+                  this.common.printPage(`op-bill/${response.id}/hospital`);
                 }
               });
               this.resetPage();
@@ -417,7 +418,7 @@ export class OPBillingComponent implements OnInit, OnDestroy {
     else if (this.formGroup.get('billNo').value === '')
       this.toastr.error('Select the Bill No');
     else {
-      this.common.printPage(`op-bill/${this.formGroup.get('billNo').value}`);
+      this.common.printPage(`op-bill/${this.formGroup.get('billNo').value}/${this.formGroup.get('billType').value}`);
     }
   }
 
@@ -591,6 +592,7 @@ export class OPBillingComponent implements OnInit, OnDestroy {
       name: new FormControl(''),
       age: new FormControl(''),
       gender: new FormControl('Male'),
+      billType: new FormControl('hospital'),
       contact: new FormControl(''),
       consultant: new FormControl(''),
       feesType: new FormControl(''),

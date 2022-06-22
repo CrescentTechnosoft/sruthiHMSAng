@@ -35,7 +35,7 @@
         </div>
         <div class="row mt-1">
             <div class="col-lg-1 col-md-1 col-sm-2 col-4">
-                <label class="badge">Patient ID&nbsp;<span class="fa fa-asterisk"
+                <label class="badge">Patient ID/UHID&nbsp;<span class="fa fa-asterisk"
                         style="font-size: 6px; color: Red;"></span></label>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-3 col-8">
@@ -43,7 +43,7 @@
                 <select class="form-control form-control-sm" (change)="getPatientDetails()" [(ngModel)]='inputs.ddlID'
                     *ngIf='!editMode'>
                     <option value="">Select</option>
-                    <option *ngFor='let id of pidList'>{{id}}</option>
+                    <option *ngFor='let id of pidList' [value]="id.id">{{id.uhid}}</option>
                 </select>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-4">
