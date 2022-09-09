@@ -271,7 +271,7 @@ export class OPBillingComponent implements OnInit, OnDestroy {
                 allowOutsideClick: false
               }).then((result) => {
                 if (result.isConfirmed) {
-                  this.common.printPage(`op-bill/${response.id}/hospital`);
+                  this.common.printPage(`op-bill/${response.id}/clinic`);
                 }
               });
               this.resetPage();
